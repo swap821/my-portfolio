@@ -1,0 +1,43 @@
+/* Tailwind v4 uses a single import */
+@import "tailwindcss";
+
+/* Force the transparent background for the 3D canvas */
+body, #root {
+  margin: 0;
+  padding: 0;
+  background-color: transparent !important;
+  min-height: 100vh;
+  color: white;
+}
+
+/* Add this below your @import "tailwindcss"; */
+
+.glass-panel {
+  background: rgba(17, 24, 39, 0.4) !important; /* Semi-transparent dark gray */
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Only hide default cursor on desktop devices */
+@media (min-width: 768px) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Custom Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #050b14; /* Matches your deep space background */
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b; /* Slate color */
+  border-radius: 10px;
+  border: 2px solid #050b14; /* Creates a nice padding effect */
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6; /* Blue accent on hover */
+}
