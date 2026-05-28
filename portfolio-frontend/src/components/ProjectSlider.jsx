@@ -96,19 +96,20 @@ const projects = [
 
 const TechPill = ({ t, hoverTheme = false }) => (
   <div className="relative group/pill z-50">
-    <span className={`px-3 py-1.5 text-[11px] font-bold tracking-wide rounded-full border transition-all duration-300 inline-flex items-center gap-1.5 shadow-md ${
+    <span className={`px-2.5 py-1.5 md:px-3 text-[10px] md:text-[11px] font-bold tracking-wide rounded-full border transition-all duration-300 inline-flex items-center gap-1.5 shadow-md ${
       hoverTheme 
-        ? "bg-black/90 text-white border-gray-600 hover:border-blue-400 hover:-translate-y-1" 
-        : "bg-[#1e293b] text-gray-300 border-gray-700 hover:border-gray-500"
+        ? "bg-black/90 text-white border-gray-600 lg:hover:border-blue-400 lg:hover:-translate-y-1" 
+        : "bg-[#1e293b] text-gray-300 border-gray-700 lg:hover:border-gray-500"
     }`}>
-      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: techColors[t.name] || techColors.Default }}></span>
+      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: techColors[t.name] || techColors.Default }}></span>
       {techIcons[t.name] || techIcons.Default}
-      {t.name}
+      <span className="whitespace-nowrap">{t.name}</span>
       <span className="text-gray-400 font-medium ml-0.5">{t.percent}%</span>
     </span>
     
-    <div className={`absolute left-1/2 -translate-x-1/2 w-48 p-3 bg-[#0f172a] rounded-xl opacity-0 pointer-events-none transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.8)] border border-gray-700 z-[999] ${
-      hoverTheme ? "top-full mt-2 group-hover/pill:opacity-100 group-hover/pill:translate-y-1" : "bottom-full mb-2 group-hover/pill:opacity-100 group-hover/pill:-translate-y-1"
+    {/* UPGRADE: Tooltips are disabled on mobile (hidden lg:block) so they don't get stuck on screen */}
+    <div className={`hidden lg:block absolute left-1/2 -translate-x-1/2 w-48 p-3 bg-[#0f172a] rounded-xl opacity-0 pointer-events-none transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.8)] border border-gray-700 z-[999] ${
+      hoverTheme ? "top-full mt-2 lg:group-hover/pill:opacity-100 lg:group-hover/pill:translate-y-1" : "bottom-full mb-2 lg:group-hover/pill:opacity-100 lg:group-hover/pill:-translate-y-1"
     }`}>
       <div className="flex items-center gap-1.5 mb-1.5">
         <span className="text-blue-500 text-xs">⚡</span>
@@ -122,12 +123,10 @@ const TechPill = ({ t, hoverTheme = false }) => (
 const ProjectSlider = () => {
   const swiperRef = useRef(null);
 
-  // THE MAGIC BRIDGE: Listens for clicks from the Skills section
   useEffect(() => {
     const handleSlideToProject = (event) => {
       if (swiperRef.current) {
         const targetIndex = event.detail.index;
-        // Uses slideToLoop to accurately spin the revolver to the right card
         swiperRef.current.slideToLoop(targetIndex, 800);
       }
     };
@@ -137,7 +136,6 @@ const ProjectSlider = () => {
   }, []);
 
   return (
-    // Added id="projects-slider" so the smooth scroll knows where to go
     <div id="projects-slider" className="w-full relative mx-auto overflow-visible flex flex-col items-center select-none py-10 scroll-mt-20">
       
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
@@ -154,7 +152,7 @@ const ProjectSlider = () => {
           slideToClickedSlide={true} 
           coverflowEffect={{ rotate: 15, stretch: 0, depth: 300, modifier: 1, slideShadows: false }}
           modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
-          onBeforeInit={(swiper) => { swiperRef.current = swiper; }} // Bind swiper instance to our ref
+          onBeforeInit={(swiper) => { swiperRef.current = swiper; }}
           className="mySwiper !pb-24" 
         >
           {projects.map((proj, idx) => (
@@ -164,7 +162,8 @@ const ProjectSlider = () => {
                   
                   <div className={`absolute -bottom-10 left-10 right-10 h-10 bg-blue-500/40 blur-2xl transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-0'}`}></div>
 
-                  <div className={`relative bg-[#0b1120] rounded-3xl h-[490px] flex flex-col transition-all duration-700 ease-out will-change-transform ${
+                  {/* UPGRADE: Card is taller on mobile (h-[540px]) to fit buttons natively */}
+                  <div className={`relative bg-[#0b1120] rounded-3xl h-[540px] lg:h-[490px] flex flex-col transition-all duration-700 ease-out will-change-transform ${
                     isActive ? 'scale-100 cursor-auto' : 'opacity-50 scale-90 cursor-pointer hover:opacity-80' 
                   }`}>
                     
@@ -177,37 +176,51 @@ const ProjectSlider = () => {
                     <div className="absolute inset-[1px] bg-[#0b1120] rounded-3xl pointer-events-none z-0 border border-gray-800" />
 
                     <div className="absolute inset-[1px] z-10 overflow-hidden rounded-3xl pointer-events-none">
-                      <div className="absolute -top-6 -right-2 text-[12rem] font-black text-white/[0.02] select-none transition-transform duration-700 group-hover:scale-105">
+                      <div className="absolute -top-6 -right-2 text-[12rem] font-black text-white/[0.02] select-none transition-transform duration-700 lg:group-hover:scale-105">
                         0{idx + 1}
                       </div>
                       {isActive && (
                         <>
-                          <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 scale-100 group-hover:scale-110 opacity-0 group-hover:opacity-100" style={{ backgroundImage: `url(${proj.image})` }}></div>
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#050b14] via-[#050b14]/90 to-[#050b14]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                          {/* UPGRADE: On mobile, background image stays at 15% opacity so it looks premium without needing hover */}
+                          <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 scale-100 lg:group-hover:scale-110 opacity-15 lg:opacity-0 lg:group-hover:opacity-100" style={{ backgroundImage: `url(${proj.image})` }}></div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#050b14] via-[#050b14]/90 to-[#050b14]/60 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500"></div>
                         </>
                       )}
                     </div>
 
-                    <div className="absolute inset-[1px] z-20 pointer-events-none flex flex-col">
+                    <div className="absolute inset-[1px] z-20 flex flex-col pointer-events-none">
                       
-                      <div className={`absolute inset-0 flex flex-col h-full p-6 transition-opacity duration-500 pointer-events-auto ${isActive ? 'group-hover:opacity-0 group-hover:pointer-events-none' : ''}`}>
-                        <h3 className="text-3xl font-extrabold text-white mb-2 tracking-wide pr-16">{proj.title}</h3>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-6">{proj.desc}</p>
+                      {/* --- FRONT VIEW --- */}
+                      <div className={`absolute inset-0 flex flex-col h-full p-6 transition-opacity duration-500 pointer-events-auto ${isActive ? 'lg:group-hover:opacity-0 lg:group-hover:pointer-events-none' : ''}`}>
+                        <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-2 tracking-wide pr-10">{proj.title}</h3>
+                        <p className="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 md:mb-6">{proj.desc}</p>
 
-                        <div className="relative z-10 mb-6 bg-[#0f172a]/80 border border-gray-700/50 rounded-2xl p-4 flex-grow shadow-inner flex flex-col justify-center">
+                        <div className="relative z-10 mb-4 md:mb-6 bg-[#0f172a]/80 border border-gray-700/50 rounded-2xl p-4 flex-grow shadow-inner flex flex-col justify-center">
                           <h4 className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                             <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
                             Engineering Spotlight
                           </h4>
                           <ul className="space-y-3">
                             {proj.spotlights.map((spot, i) => (
-                              <li key={i} className="flex items-start gap-2 text-[12px] text-gray-300">
+                              <li key={i} className="flex items-start gap-2 text-[11px] md:text-[12px] text-gray-300">
                                 <svg className="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                                 <span className="leading-snug">{spot}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
+
+                        {/* UPGRADE: MOBILE ONLY ACTION BUTTONS - Instantly clickable on phones! */}
+                        {isActive && (
+                          <div className="flex gap-3 mb-5 lg:hidden z-30 relative">
+                            <a href={proj.github} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-black/60 border border-gray-600 text-white text-xs font-semibold rounded-xl text-center shadow-lg active:scale-95 transition-all">
+                              GitHub
+                            </a>
+                            <a href={proj.demo} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-blue-600 text-white text-xs font-bold rounded-xl text-center shadow-[0_0_15px_rgba(37,99,235,0.5)] active:scale-95 transition-all">
+                              Live Demo
+                            </a>
+                          </div>
+                        )}
 
                         <div className="mt-auto pt-4 border-t border-gray-800/80">
                           <div className="flex h-1.5 w-full rounded-full overflow-hidden mb-3 bg-gray-800">
@@ -221,8 +234,9 @@ const ProjectSlider = () => {
                         </div>
                       </div>
 
+                      {/* --- DESKTOP HOVER VIEW (Hidden entirely on mobile screens) --- */}
                       {isActive && (
-                        <div className="absolute inset-0 flex flex-col h-full justify-between p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:pointer-events-auto">
+                        <div className="hidden lg:flex absolute inset-0 flex-col h-full justify-between p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:pointer-events-auto z-30">
                           
                           <div>
                             <div className="flex h-1.5 w-full rounded-full overflow-hidden mb-3 bg-gray-800 shadow-xl -translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
