@@ -46,25 +46,44 @@ const Contact = () => {
               I am currently looking for internship opportunities! Whether you have a project in mind, a question, or just want to say hi, my inbox is always open.
             </motion.p>
 
-            {/* UPGRADE: Premium Direct Contact Pill */}
-            <motion.div variants={itemVariants} className="flex flex-col gap-3">
-              <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest pl-1 border-l-2 border-blue-500/50">
+            {/* UPGRADE: Premium Direct Contact Pills (Email & Phone) */}
+            <motion.div variants={itemVariants} className="flex flex-col gap-4 w-full">
+              <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest pl-1 border-l-2 border-blue-500/50 mb-1">
                 Direct Contact
               </span>
+              
+              {/* Email Pill */}
               <a 
-                href="mailto:your.email@example.com" 
-                className="group flex items-center gap-4 px-6 py-4 rounded-2xl bg-[#050b14]/80 backdrop-blur-md border border-gray-800 hover:border-blue-500/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] hover:-translate-y-1 cursor-none w-max"
+                href="mailto:kumarswapnil82@gmail.com" 
+                className="group flex items-center gap-4 px-6 py-4 rounded-2xl bg-[#050b14]/80 backdrop-blur-md border border-gray-800 hover:border-blue-500/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] hover:-translate-y-1 cursor-none w-full max-w-sm"
               >
-                <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20 group-hover:bg-blue-500/20 group-hover:border-blue-400/50 transition-colors">
+                <div className="w-10 h-10 shrink-0 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20 group-hover:bg-blue-500/20 group-hover:border-blue-400/50 transition-colors">
                   <svg className="w-5 h-5 text-blue-400 group-hover:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                   </svg>
                 </div>
-                <div>
-                  <div className="text-white font-semibold tracking-wide">your.email@example.com</div>
+                <div className="overflow-hidden">
+                  <div className="text-white font-semibold tracking-wide truncate">kumarswapnil82@gmail.com</div>
                   <div className="text-gray-500 text-xs mt-0.5 group-hover:text-gray-400 transition-colors">Average response time: 24h</div>
                 </div>
               </a>
+
+              {/* Phone Pill */}
+              <a 
+                href="tel:+918092513413" 
+                className="group flex items-center gap-4 px-6 py-4 rounded-2xl bg-[#050b14]/80 backdrop-blur-md border border-gray-800 hover:border-emerald-500/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:-translate-y-1 cursor-none w-full max-w-sm"
+              >
+                <div className="w-10 h-10 shrink-0 rounded-full bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 group-hover:bg-emerald-500/20 group-hover:border-emerald-400/50 transition-colors">
+                  <svg className="w-5 h-5 text-emerald-400 group-hover:text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                  </svg>
+                </div>
+                <div className="overflow-hidden">
+                  <div className="text-white font-semibold tracking-wide truncate">+91 80925 13413</div>
+                  <div className="text-gray-500 text-xs mt-0.5 group-hover:text-gray-400 transition-colors">Available for direct calls</div>
+                </div>
+              </a>
+
             </motion.div>
           </motion.div>
 
