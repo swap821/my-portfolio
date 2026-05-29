@@ -6,33 +6,24 @@ import Navbar from './components/Navbar';
 // Content Components
 import Hero from './components/Hero';
 import Skills from './components/Skills';
-import ProjectSlider from './components/ProjectSlider'; // <-- UPGRADED COMPONENT
+import ProjectSlider from './components/ProjectSlider';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
 
 function App() {
-  const { socket, activeUsers, reactions, sendReaction, localCursor } = useLiveCursors();
-
-  const handleReactionClick = (e, emoji) => {
-    const x = e.clientX / window.innerWidth;
-    const y = e.clientY / window.innerHeight;
-    if (socket && socket.current) {
-        sendReaction(emoji, x, y);
-    }
-  };
+  // We only need the cursor data here now, GlobalReactions handles its own clicks!
+  const { activeUsers, localCursor } = useLiveCursors(); 
 
   return (
-    // UPGRADE: Added bg-[#030712], scroll-smooth, and premium selection highlights
     <div className="relative w-full min-h-screen bg-transparent text-white overflow-x-hidden md:cursor-none selection:bg-blue-500/30 selection:text-blue-100 scroll-smooth">   
-  
       
       {/* LAYER 0: The 3D Background */}
       <Background3D />
 
-      {/* LAYER 1: Global Reactions (Popups) */}
-      <GlobalReactions reactions={reactions} />
+      {/* LAYER 1: Global Reactions (Self-Contained IT Emojis) */}
+      <GlobalReactions />
 
       {/* LAYER 1.5: Top Navigation & Social Icons */}
       <Navbar />
@@ -40,7 +31,6 @@ function App() {
       {/* --- LAYER 2.1: YOUR PERSONAL SHADOW CURSOR (Premium Ring) --- */}
       {localCursor && (
         <>
-          {/* hidden md:block ensures this custom cursor disappears entirely on mobile screens */}
           <div 
             className="hidden md:block fixed pointer-events-none z-[10000] w-12 h-12 rounded-full border border-blue-500/40 bg-blue-500/10 backdrop-blur-[2px] transition-all duration-150 ease-out"
             style={{ 
@@ -68,7 +58,7 @@ function App() {
           style={{ 
             left: `${user.x * 100}vw`, 
             top: `${user.y * 100}vh`,
-            backgroundColor: user.color || '#3b82f6', // Switched fallback to Tailwind blue-500
+            backgroundColor: user.color || '#3b82f6', 
             transition: 'left 0.05s linear, top 0.05s linear' 
           }}
         >
@@ -78,7 +68,6 @@ function App() {
 
       {/* LAYER 3: Main Website Content */}
       <main className="relative z-10 w-full min-h-screen bg-transparent">
-        {/* Wrapped components in anchor divs for Navbar routing */}
         <div id="hero"><Hero /></div>
         <div id="skills"><Skills /></div>
         
@@ -102,20 +91,6 @@ function App() {
 
       {/* LAYER 5: Floating Digital Twin AI */}
       <Chatbot />
-
-      {/* LAYER 6: Reaction Bar */}
-      {/* UPGRADE: Moved to bottom-6 left-6 to balance the screen with the AI Chatbot on the right */}
-      <div className="fixed bottom-6 left-6 z-[200] flex gap-2 p-2 bg-gray-900/60 backdrop-blur-md rounded-full border border-gray-700/50 shadow-2xl hover:cursor-auto">
-        {['🔥', '👏', '🚀'].map((emoji) => (
-          <button
-            key={emoji}
-            onClick={(e) => handleReactionClick(e, emoji)}
-            className="pointer-events-auto w-12 h-12 flex items-center justify-center text-2xl hover:bg-white/10 rounded-full transition-all hover:scale-110 active:scale-95 cursor-pointer"
-          >
-            {emoji}
-          </button>
-        ))}
-      </div>
       
     </div>
   );
