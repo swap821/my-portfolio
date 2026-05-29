@@ -2,13 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // ----------------------------------------------------------------------
-// 🧠 THE ADVANCED MULTI-INTENT PARSER & RECRUITER BRAIN
+// 🧠 THE ULTIMATE RECRUITER AI BRAIN
 // ----------------------------------------------------------------------
 const generateLocalResponse = (userInput) => {
-  const text = userInput.toLowerCase().replace(/[?,.!]/g, '');
+  // UPGRADE: Strips ALL punctuation safely so plurals and weird typing don't break it
+  const text = userInput.toLowerCase().replace(/[^a-z0-9\s]/g, '');
 
   const knowledgeBase = [
-    // --- PROJECT INTENTS (Now with interactive 'action' payloads!) ---
+    // --- 1. THE PROJECTS ---
     {
       id: 'devstore',
       keywords: ['devstore', 'ecommerce', 'e-commerce', 'shop', 'stripe', 'payment'],
@@ -35,50 +36,71 @@ const generateLocalResponse = (userInput) => {
     },
     {
       id: 'crypto',
-      keywords: ['crypto', 'tracker', 'bitcoin', 'chartjs', 'api'],
+      keywords: ['crypto', 'tracker', 'bitcoin', 'chartjs', 'api', 'coin'],
       response: "His Cryptocurrency Tracker is an API-driven dashboard. He implemented debounced REST API polling to fetch live market data safely and used Chart.js for dynamic visualization.",
       action: { label: "View Crypto Tracker", targetIndex: 4 }
     },
 
-    // --- RECRUITER & BEHAVIORAL INTENTS ---
+    // --- 2. RECRUITER BEHAVIORAL & BACKGROUND ---
     {
       id: 'about',
-      keywords: ['about', 'yourself', 'who', 'background', 'intro', 'pitch'],
+      keywords: ['about', 'yourself', 'who', 'background', 'intro', 'pitch', 'bio'],
       response: "Swapnil is a driven Full-Stack MERN Developer currently in his second year of BCA. He specializes in building agency-grade, highly interactive web applications. He bridges the gap between complex backend architectures and premium frontend user experiences."
     },
     {
+      id: 'availability',
+      // UPGRADE: Added plurals and variations like 'internships'
+      keywords: ['available', 'start', 'timeline', 'when', 'intern', 'internship', 'internships', 'opportunities', 'role', 'roles'],
+      response: "Swapnil is actively seeking remote or hybrid internship opportunities! He is highly dedicated and ready to start contributing to a dynamic engineering team immediately."
+    },
+    {
+      id: 'skills',
+      keywords: ['skill', 'skills', 'tech', 'stack', 'technologies', 'react', 'node', 'express', 'mongodb', 'mern', 'frontend', 'backend', 'fullstack'],
+      response: "He specializes in the MERN stack (MongoDB, Express, React, Node.js). He is also highly proficient in Tailwind CSS for styling, WebSockets for real-time data, and building scalable REST APIs."
+    },
+    {
+      id: 'problem_solving',
+      keywords: ['bug', 'bugs', 'debug', 'debugging', 'problem', 'solve', 'error', 'difficult', 'hardest', 'challenge'],
+      response: "Swapnil tackles bugs methodically. He relies on Chrome DevTools, React Profiler, and detailed console logging. He enjoys breaking down complex architectural problems into manageable components."
+    },
+    {
+      id: 'teamwork',
+      keywords: ['team', 'teamwork', 'collaborate', 'collaboration', 'git', 'github', 'version'],
+      response: "He is highly collaborative and uses Git/GitHub for strict version control. He understands the importance of clean commits, branch management, and writing readable, maintainable code for a team."
+    },
+    {
+      id: 'goals',
+      keywords: ['goal', 'goals', 'future', 'next', 'learn', 'vision'],
+      response: "Swapnil is currently deep-diving into advanced system design and cloud deployments. His goal is to become a highly proficient Senior Full-Stack Engineer who builds systems at scale."
+    },
+    {
       id: 'strengths',
-      keywords: ['strength', 'strengths', 'best', 'good at', 'value', 'why hire'],
+      keywords: ['strength', 'strengths', 'best', 'good at', 'value', 'why hire', 'advantage'],
       response: "Swapnil's core strengths are his adaptability and his full-stack vision. Because he understands both database aggregation (MongoDB) and advanced UI rendering (React/Framer Motion), he builds features that are both visually stunning and highly performant."
     },
     {
       id: 'weaknesses',
-      keywords: ['weakness', 'weaknesses', 'challenge', 'struggle', 'improve'],
-      response: "As an enthusiastic developer, Swapnil's main challenge is wanting to build everything from scratch! However, he has recently focused on learning when to leverage existing tools and libraries to speed up development cycles."
-    },
-    {
-      id: 'availability',
-      keywords: ['available', 'start', 'timeline', 'when', 'internship', 'full-time'],
-      response: "Swapnil is actively seeking remote or hybrid internship opportunities. He is highly dedicated and ready to start contributing to a dynamic engineering team immediately."
+      keywords: ['weakness', 'weaknesses', 'struggle', 'improve', 'fail', 'failure'],
+      response: "As an enthusiastic developer, Swapnil's main challenge used to be wanting to build everything from scratch! However, he has recently focused on learning when to leverage existing tools and libraries to speed up development cycles."
     },
     {
       id: 'location',
-      keywords: ['location', 'where', 'remote', 'relocate', 'relocation', 'india'],
-      response: "Swapnil is based in Jamshedpur, Jharkhand, India. He is fully equipped for remote work and is open to discussing relocation for the right opportunity."
+      keywords: ['location', 'where', 'remote', 'relocate', 'relocation', 'india', 'based', 'city', 'jamshedpur'],
+      response: "Swapnil is based in Jamshedpur, Jharkhand, India. He is fully equipped for remote work and is highly open to discussing relocation for the right opportunity."
     },
     {
-      id: 'skills',
-      keywords: ['skill', 'skills', 'tech', 'stack', 'technologies', 'react', 'node', 'express', 'mongodb', 'mern'],
-      response: "He specializes in the MERN stack (MongoDB, Express, React, Node.js). He is also highly proficient in Tailwind CSS for styling, WebSockets for real-time data, and building scalable API architectures."
+      id: 'education',
+      keywords: ['education', 'bca', 'degree', 'college', 'university', 'study', 'student'],
+      response: "Swapnil is currently a second-year BCA (Bachelor of Computer Applications) student. He constantly pushes his limits by building production-grade full-stack applications alongside his formal studies."
     },
     {
       id: 'hire',
-      keywords: ['hire', 'contact', 'email', 'reach', 'resume', 'phone', 'call'],
+      keywords: ['hire', 'contact', 'email', 'reach', 'resume', 'phone', 'call', 'cv', 'connect'],
       response: "The best way to reach Swapnil is directly at kumarswapnil82@gmail.com or by calling +91 80925 13413. You can also download his resume directly from the Hero section above!"
     },
     {
       id: 'greeting',
-      keywords: ['hi', 'hello', 'hey', 'greetings', 'morning'],
+      keywords: ['hi', 'hello', 'hey', 'greetings', 'morning', 'afternoon', 'evening', 'sup'],
       response: "Hello! Feel free to ask me about Swapnil's tech stack, his availability for internships, or ask me to explain any of his projects (like DevStore or the Live Chat app)!"
     }
   ];
@@ -88,6 +110,7 @@ const generateLocalResponse = (userInput) => {
   knowledgeBase.forEach(entry => {
     let score = 0;
     entry.keywords.forEach(keyword => {
+      // Regex \b checks for exact words, so 'internships' now strictly matches because it's in the array!
       const regex = new RegExp(`\\b${keyword}\\b`, 'i');
       if (regex.test(text)) {
         score++;
@@ -109,7 +132,6 @@ const generateLocalResponse = (userInput) => {
       combinedText += "\n\nAdditionally, " + matchedIntents[1].response.charAt(0).toLowerCase() + matchedIntents[1].response.slice(1);
     }
     
-    // Return an object containing both the text AND the action button data
     return { text: combinedText, action: matchedIntents[0].action || null };
   }
 
@@ -136,7 +158,7 @@ const Chatbot = () => {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  const suggestions = ["Tell me about yourself", "Explain DevStore", "Are you looking for internships?"];
+  const suggestions = ["Are you looking for internships?", "What is your tech stack?", "Explain DevStore"];
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -160,9 +182,8 @@ const Chatbot = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // --- THE MAGIC BRIDGE HANDLER ---
   const handleProjectRedirect = (targetIndex) => {
-    setIsOpen(false); // Close the chat first so they can see the animation
+    setIsOpen(false);
     setTimeout(() => {
       const sliderSection = document.getElementById('projects-slider');
       if (sliderSection) {
@@ -171,7 +192,7 @@ const Chatbot = () => {
       window.dispatchEvent(new CustomEvent('slide-to-project', { 
         detail: { index: targetIndex } 
       }));
-    }, 300); // Wait for chat close animation to finish
+    }, 300); 
   };
 
   const processMessage = (userText) => {
@@ -183,7 +204,6 @@ const Chatbot = () => {
 
     setTimeout(() => {
       const reply = generateLocalResponse(userText); 
-      // Push both the text and the potential action button into the state
       setMessages(prev => [...prev, { role: 'assistant', text: reply.text, action: reply.action }]);
       setIsTyping(false);
     }, 1200);
@@ -259,7 +279,6 @@ const Chatbot = () => {
                       {msg.text}
                     </div>
                     
-                    {/* NEW: Render Action Button if it exists! */}
                     {msg.action && (
                       <button
                         onClick={() => handleProjectRedirect(msg.action.targetIndex)}
