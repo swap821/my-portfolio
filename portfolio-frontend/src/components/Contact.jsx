@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const containerVariants = {
@@ -11,9 +12,39 @@ const itemVariants = {
 };
 
 const Contact = () => {
-  const handleSubmit = (e) => {
+  // NEW: State to track form submission status
+  const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your form submission logic here!
+    setStatus('loading');
+
+    const formData = new FormData(e.target);
+    
+    // 🛑 PASTE YOUR WEB3FORMS ACCESS KEY HERE 🛑
+    formData.append("access_key", "e7a2c37e-2d32-421c-aa9e-5974afb1b4bd");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus('success');
+        e.target.reset(); // Clear the form
+        
+        // Reset button back to normal after 3 seconds
+        setTimeout(() => setStatus('idle'), 3000);
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setStatus('error');
+    }
   };
 
   return (
@@ -107,15 +138,16 @@ const Contact = () => {
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 
-                {/* UPGRADE: 2-Column Grid for Inputs on Desktop */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="relative">
                     <label htmlFor="name" className="block text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-2 pl-1">
                       Name
                     </label>
+                    {/* NEW: name attribute required by Web3Forms */}
                     <input 
                       type="text" 
                       id="name"
+                      name="name"
                       placeholder="John Doe"
                       required
                       className="w-full bg-[#0a101d] border border-gray-700/50 rounded-xl px-5 py-3.5 text-gray-200 placeholder-gray-600 focus:outline-none focus:border-blue-500/80 focus:bg-blue-500/5 focus:shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-all duration-300 cursor-none"
@@ -126,9 +158,11 @@ const Contact = () => {
                     <label htmlFor="email" className="block text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-2 pl-1">
                       Email
                     </label>
+                    {/* NEW: name attribute required by Web3Forms */}
                     <input 
                       type="email" 
                       id="email"
+                      name="email"
                       placeholder="john@example.com"
                       required
                       className="w-full bg-[#0a101d] border border-gray-700/50 rounded-xl px-5 py-3.5 text-gray-200 placeholder-gray-600 focus:outline-none focus:border-blue-500/80 focus:bg-blue-500/5 focus:shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-all duration-300 cursor-none"
@@ -140,8 +174,10 @@ const Contact = () => {
                   <label htmlFor="message" className="block text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-2 pl-1">
                     Message
                   </label>
+                  {/* NEW: name attribute required by Web3Forms */}
                   <textarea 
                     id="message"
+                    name="message"
                     rows="4"
                     placeholder="Hello, I'd like to talk about an opportunity..."
                     required
@@ -152,21 +188,26 @@ const Contact = () => {
                 <div className="pt-4">
                   <button 
                     type="submit"
-                    className="group/btn relative w-full flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.7)] transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-none"
+                    disabled={status === 'loading' || status === 'success'}
+                    className="group/btn relative w-full flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.7)] disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-none"
                   >
                     {/* Sweeping Hover Glare */}
                     <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-in-out"></div>
                     
-                    <span className="tracking-wide relative z-10">Send Message</span>
+                    <span className="tracking-wide relative z-10">
+                      {status === 'loading' ? 'Sending...' : status === 'success' ? 'Message Sent! ✅' : status === 'error' ? 'Error. Try Again.' : 'Send Message'}
+                    </span>
                     
-                    <svg 
-                      className="w-5 h-5 relative z-10 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                    </svg>
+                    {status === 'idle' && (
+                      <svg 
+                        className="w-5 h-5 relative z-10 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      </svg>
+                    )}
                   </button>
                 </div>
 
