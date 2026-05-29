@@ -1,63 +1,103 @@
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useCallback } from 'react';
+import { io } from 'socket.io-client';
 
-const ReactionItem = ({ reaction }) => {
-  const [drift] = useState(() => ({
-    x: (Math.random() - 0.5) * 60, 
-    y: Math.random() * 60 + 100 
-  }));
+// 🛑 Replace with your actual live Render URL!
+const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+const socket = io(SOCKET_URL, { autoConnect: false });
+
+const FloatingEmojiItem = ({ item }) => {
+  const [randomX] = useState(() => (Math.random() - 0.5) * 15);
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.2, y: 0, x: 0 }}
+      initial={{ opacity: 0, scale: 0.2, y: 0, x: randomX }}
       animate={{ 
         opacity: [0, 1, 1, 0], 
-        scale: [0.5, 1.2, 1],  
-        y: -drift.y, 
-        x: drift.x        
+        scale: [0.5, 1, 1, 0.5], 
+        y: [0, -100, -140, -160]
       }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5, ease: "easeOut" }}
-      // Spawns perfectly above the new built-in buttons
-      className="absolute bottom-full mb-4 text-2xl md:text-3xl drop-shadow-xl select-none pointer-events-none z-0"
+      // Spawns slightly higher now to clear the badges
+      className="absolute bottom-full mb-2 text-2xl drop-shadow-xl select-none pointer-events-none z-0"
     >
-      {reaction.emoji}
+      {item.emoji}
     </motion.div>
   );
 };
 
 const GlobalReactions = () => {
-  // State is now managed locally inside this file
   const [reactions, setReactions] = useState([]);
+  const [counts, setCounts] = useState({});
 
+  const itEmojis = ['🚀', '💡', '⚡', '☕'];
+
+  // --- INTEGRATED SOCKET.IO LOGIC ---
+  useEffect(() => {
+    socket.connect();
+
+    socket.on('initial-counts', (data) => {
+      const dbCounts = {};
+      data.forEach(item => {
+        dbCounts[item.emoji] = item.count;
+      });
+      setCounts(dbCounts);
+    });
+
+    socket.on('receive-reaction', (data) => {
+      const id = Date.now() + Math.random();
+      setReactions((prev) => [...prev, { id, emoji: data.emoji }]);
+      
+      setCounts((prev) => ({
+        ...prev,
+        [data.emoji]: (prev[data.emoji] || 0) + 1
+      }));
+
+      setTimeout(() => {
+        setReactions((prev) => prev.filter((item) => item.id !== id));
+      }, 1500);
+    });
+
+    return () => {
+      socket.disconnect();
+      socket.off('initial-counts');
+      socket.off('receive-reaction');
+    };
+  }, []);
+
+  // --- UNIFIED CLICK HANDLER ---
   const handleReaction = useCallback((emoji) => {
     const id = Date.now() + Math.random();
     setReactions((prev) => [...prev, { id, emoji }]);
 
-    // Auto-cleanup memory
+    setCounts((prev) => ({
+      ...prev,
+      [emoji]: (prev[emoji] || 0) + 1
+    }));
+
+    socket.emit('send-reaction', { emoji });
+
     setTimeout(() => {
       setReactions((prev) => prev.filter((item) => item.id !== id));
     }, 1500);
   }, []);
 
-  // NEW: The professional IT Emoji Array
-  const itEmojis = ['🚀', '💡', '⚡', '☕'];
-
   return (
-    // Fixed to bottom left. pointer-events-none stops the invisible box from blocking clicks on your site
-    <div className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-[9999] flex flex-col items-center pointer-events-none">
+    // WRAPPER: Aligned to items-start so the badges line up neatly on the left
+    <div className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-[9999] flex flex-col items-start pointer-events-none">
       
       {/* Floating Animation Container */}
-      <div className="relative w-full flex justify-center">
+      <div className="relative w-full flex justify-start pl-8">
         <AnimatePresence>
-          {reactions.map((reaction) => (
-            <ReactionItem key={reaction.id} reaction={reaction} />
+          {reactions.map((item) => (
+            <FloatingEmojiItem key={item.id} item={item} />
           ))}
         </AnimatePresence>
       </div>
 
-      {/* The Clickable Buttons - pointer-events-auto turns clicks back on for just the pill */}
-      <div className="pointer-events-auto relative z-10 flex items-center gap-1 md:gap-2 p-1.5 md:p-2 bg-[#050b14]/90 backdrop-blur-md border border-gray-800 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+      {/* DISCORD-STYLE BADGES WRAPPER: No background pill, just a flex row with gap */}
+      <div className="pointer-events-auto relative z-10 flex flex-wrap items-center gap-2 mt-2">
         {itEmojis.map((emoji, idx) => (
           <button
             key={idx}
@@ -65,11 +105,16 @@ const GlobalReactions = () => {
               e.preventDefault();
               handleReaction(emoji);
             }}
-            className="w-9 h-9 md:w-11 md:h-11 flex items-center justify-center text-lg md:text-xl rounded-full hover:bg-white/10 active:scale-75 transition-all outline-none select-none cursor-pointer md:cursor-none touch-manipulation"
+            // EXACT DISCORD STYLING: Horizontal layout, dark slate background, side-by-side text
+            className="flex items-center justify-center gap-1.5 px-2.5 py-1 bg-[#2b2d31]/90 hover:bg-[#313338] border border-[#1e1f22]/50 hover:border-gray-500 rounded-lg transition-colors outline-none select-none cursor-pointer md:cursor-none touch-manipulation shadow-sm backdrop-blur-sm"
             style={{ WebkitTapHighlightColor: 'transparent' }}
-            aria-label={`React with ${emoji}`}
           >
-            {emoji}
+            {/* Emoji */}
+            <span className="text-[1.1rem] leading-none">{emoji}</span>
+            {/* Number Counter */}
+            <span className="text-[13px] font-bold text-[#b5bac1] mt-[1px]">
+              {counts[emoji] || 0}
+            </span>
           </button>
         ))}
       </div>

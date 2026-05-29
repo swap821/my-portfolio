@@ -1,5 +1,4 @@
 import { useLiveCursors } from './hooks/useLiveCursors';
-import GlobalReactions from './components/GlobalReactions';
 import Background3D from './components/Background3D';
 import Navbar from './components/Navbar';
 
@@ -10,10 +9,13 @@ import ProjectSlider from './components/ProjectSlider';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+
+// Floating Global Widgets
 import Chatbot from './components/Chatbot';
+import GlobalReactions from './components/GlobalReactions';
 
 function App() {
-  // We only need the cursor data here now, GlobalReactions handles its own clicks!
+  // We only need the cursor data here now. GlobalReactions handles its own clicks!
   const { activeUsers, localCursor } = useLiveCursors(); 
 
   return (
@@ -22,10 +24,7 @@ function App() {
       {/* LAYER 0: The 3D Background */}
       <Background3D />
 
-      {/* LAYER 1: Global Reactions (Self-Contained IT Emojis) */}
-      <GlobalReactions />
-
-      {/* LAYER 1.5: Top Navigation & Social Icons */}
+      {/* LAYER 1: Top Navigation & Social Icons */}
       <Navbar />
 
       {/* --- LAYER 2.1: YOUR PERSONAL SHADOW CURSOR (Premium Ring) --- */}
@@ -89,8 +88,9 @@ function App() {
       {/* LAYER 4: Footer */}
       <Footer />
 
-      {/* LAYER 5: Floating Digital Twin AI */}
+      {/* LAYER 5: Floating Global Widgets */}
       <Chatbot />
+      <GlobalReactions />
       
     </div>
   );
