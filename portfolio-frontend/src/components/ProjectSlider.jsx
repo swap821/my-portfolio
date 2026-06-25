@@ -5,7 +5,7 @@ import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/module
 import { techIcons, techColors } from './techData';
 
 import 'swiper/css';
-import 'swiper/css/effect-coverflow';
+import 'swiper/css/effect/coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
@@ -92,12 +92,12 @@ const projects = [
     demo: "https://crypto-tracker-five-eosin.vercel.app",
     image: "/projects/crypto.png" 
   },
-  // NEW: ML Projects (added 2025)
+  // ML Projects - June 2025
   {
     title: "ML Student Predictor",
-    desc: "Full-stack ML regression app predicting student exam scores. Trains 3 models with automated comparison and feature importance analysis.",
+    desc: "Full-stack ML regression app predicting student exam scores. Trains 3 models (Linear Regression, Random Forest, XGBoost) with automated comparison and feature importance analysis.",
     spotlights: [
-      "Multi-model comparison: Linear Regression, Random Forest, XGBoost",
+      "Multi-model training: Linear Regression, Random Forest, XGBoost",
       "Automated feature importance analysis pipeline"
     ],
     tech: [
@@ -112,10 +112,10 @@ const projects = [
   },
   {
     title: "Sentiment Analysis App",
-    desc: "Dual-model NLP pipeline with TF-IDF + Logistic Regression and LSTM Neural Network. Real-time text analysis with confidence scoring.",
+    desc: "Dual-model NLP pipeline with TF-IDF + Logistic Regression and LSTM Neural Network. Real-time text analysis with confidence scoring and batch CSV processing.",
     spotlights: [
-      "Dual-model pipeline: TF-IDF + Logistic Regression and LSTM",
-      "Real-time text analysis with batch CSV processing"
+      "Dual-model NLP: TF-IDF and LSTM with confidence scoring",
+      "Batch CSV processing for large-scale sentiment analysis"
     ],
     tech: [
       { name: "Python", percent: 60.0, usage: "NLP models with TensorFlow & scikit-learn" },
@@ -129,10 +129,10 @@ const projects = [
   },
   {
     title: "Face Emotion Detector",
-    desc: "Real-time CNN-based emotion detection from webcam feed. 7-class facial expression recognition with OpenCV preprocessing.",
+    desc: "Real-time CNN-based emotion detection from webcam feed. 7-class facial expression recognition with OpenCV preprocessing and WebSocket streaming.",
     spotlights: [
-      "7-class facial expression recognition using CNN",
-      "WebSocket streaming for real-time video processing"
+      "7-class emotion recognition using CNN architecture",
+      "Real-time WebSocket video streaming processing"
     ],
     tech: [
       { name: "Python", percent: 58.0, usage: "CNN model with OpenCV & Flask backend" },
@@ -146,10 +146,10 @@ const projects = [
   },
   {
     title: "AI Career Assistant",
-    desc: "Capstone project with RAG-based interview prep. spaCy NER resume parsing, skill gap analysis, and Gemini LLM interview questions.",
+    desc: "Capstone project with RAG-based interview prep using AWS Bedrock. spaCy NER resume parsing, skill gap analysis, Claude LLM interview questions, and semantic job matching.",
     spotlights: [
-      "RAG-based interview preparation with Gemini LLM",
-      "spaCy NER resume parsing & skill gap analysis"
+      "RAG-based interview prep with AWS Bedrock (Claude)",
+      "spaCy NER resume parsing & semantic job matching"
     ],
     tech: [
       { name: "Python", percent: 65.0, usage: "RAG pipeline, spaCy NER & Flask API" },
@@ -176,7 +176,6 @@ const TechPill = ({ t, hoverTheme = false }) => (
       <span className="text-gray-400 font-medium ml-0.5">{t.percent}%</span>
     </span>
     
-    {/* UPGRADE: Tooltips are disabled on mobile (hidden lg:block) so they don't get stuck on screen */}
     <div className={`hidden lg:block absolute left-1/2 -translate-x-1/2 w-48 p-3 bg-[#0f172a] rounded-xl opacity-0 pointer-events-none transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.8)] border border-gray-700 z-[999] ${
       hoverTheme ? "top-full mt-2 lg:group-hover/pill:opacity-100 lg:group-hover/pill:translate-y-1" : "bottom-full mb-2 lg:group-hover/pill:opacity-100 lg:group-hover/pill:-translate-y-1"
     }`}>
@@ -231,7 +230,6 @@ const ProjectSlider = () => {
                   
                   <div className={`absolute -bottom-10 left-10 right-10 h-10 bg-blue-500/40 blur-2xl transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-0'}`}></div>
 
-                  {/* UPGRADE: Card is taller on mobile (h-[540px]) to fit buttons natively */}
                   <div className={`relative bg-[#0b1120] rounded-3xl h-[540px] lg:h-[490px] flex flex-col transition-all duration-700 ease-out will-change-transform ${
                     isActive ? 'scale-100 cursor-auto' : 'opacity-50 scale-90 cursor-pointer hover:opacity-80' 
                   }`}>
@@ -245,12 +243,11 @@ const ProjectSlider = () => {
                     <div className="absolute inset-[1px] bg-[#0b1120] rounded-3xl pointer-events-none z-0 border border-gray-800" />
 
                     <div className="absolute inset-[1px] z-10 overflow-hidden rounded-3xl pointer-events-none">
-                      <div className="absolute -top-6 -right-2 text-[12rem] font-black text-white/[0.02] select-none transition-transform duration-700 lg:group-hover:scale-105">
+                      <div className="absolute -top-6 -right-2 text-[12rem] font-black text-white/[0.02] select-none transition-transform duration-700 lg:group-hover:scale-100">
                         0{idx + 1}
                       </div>
                       {isActive && (
                         <>
-                          {/* UPGRADE: On mobile, background image stays at 15% opacity so it looks premium without needing hover */}
                           <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 scale-100 lg:group-hover:scale-110 opacity-15 lg:opacity-0 lg:group-hover:opacity-100" style={{ backgroundImage: `url(${proj.image})` }}></div>
                           <div className="absolute inset-0 bg-gradient-to-t from-[#050b14] via-[#050b14]/90 to-[#050b14]/60 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500"></div>
                         </>
@@ -259,7 +256,7 @@ const ProjectSlider = () => {
 
                     <div className="absolute inset-[1px] z-20 flex flex-col pointer-events-none">
                       
-                      {/* --- FRONT VIEW --- */}
+                      {/* FRONT VIEW */}
                       <div className={`absolute inset-0 flex flex-col h-full p-6 transition-opacity duration-500 pointer-events-auto ${isActive ? 'lg:group-hover:opacity-0 lg:group-hover:pointer-events-none' : ''}`}>
                         <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-2 tracking-wide pr-10">{proj.title}</h3>
                         <p className="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 md:mb-6">{proj.desc}</p>
@@ -279,7 +276,7 @@ const ProjectSlider = () => {
                           </ul>
                         </div>
 
-                        {/* UPGRADE: MOBILE ONLY ACTION BUTTONS - Instantly clickable on phones! */}
+                        {/* MOBILE ACTION BUTTONS */}
                         {isActive && (
                           <div className="flex gap-3 mb-5 lg:hidden z-30 relative">
                             <a href={proj.github} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-black/60 border border-gray-600 text-white text-xs font-semibold rounded-xl text-center shadow-lg active:scale-95 transition-all">
@@ -303,9 +300,9 @@ const ProjectSlider = () => {
                         </div>
                       </div>
 
-                      {/* --- DESKTOP HOVER VIEW (Hidden entirely on mobile screens) --- */}
+                      {/* DESKTOP HOVER VIEW */}
                       {isActive && (
-                        <div className="hidden lg:flex absolute inset-0 flex-col h-full justify-between p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:pointer-events-auto z-30">
+                        <div className="hidden lg:flex absolute inset-0 flex-col h-full justify-between p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out pointer-events-none group-hover:pointer-events-auto z-30">
                           
                           <div>
                             <div className="flex h-1.5 w-full rounded-full overflow-hidden mb-3 bg-gray-800 shadow-xl -translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
