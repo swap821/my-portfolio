@@ -73,14 +73,14 @@ const projectsData = [
     live: 'https://crypto-tracker-five-eosin.vercel.app',
     image: '/projects/crypto.png' 
   },
-  // NEW: ML Projects (added 2025)
+  // ML Projects - June 2025
   {
     id: 6,
     title: 'ML Student Predictor',
     description: 'Full-stack ML regression app predicting student exam scores. Trains 3 models (Linear Regression, Random Forest, XGBoost) with automated comparison and feature importance analysis.',
     highlights: [
-      'Multi-model training and automated comparison',
-      'Feature importance analysis pipeline'
+      'Multi-model training: Linear Regression, Random Forest, XGBoost',
+      'Automated feature importance analysis pipeline'
     ],
     tech: [
       { name: 'Python', usage: 'Built ML pipeline with scikit-learn and XGBoost for regression.' },
@@ -131,14 +131,14 @@ const projectsData = [
   {
     id: 9,
     title: 'AI Career Assistant',
-    description: 'Capstone project with RAG-based interview prep. spaCy NER resume parsing, skill gap analysis, Gemini LLM interview questions, and semantic job matching.',
+    description: 'Capstone project with RAG-based interview prep using AWS Bedrock (Claude). spaCy NER resume parsing, skill gap analysis, LLM interview questions, and semantic job matching.',
     highlights: [
-      'RAG-based interview prep with Gemini LLM',
-      'spaCy NER resume parsing and skill gap analysis'
+      'RAG-based interview prep with AWS Bedrock (Claude)',
+      'spaCy NER resume parsing & semantic job matching'
     ],
     tech: [
-      { name: 'Python', usage: 'RAG pipeline, spaCy NER, and Sentence-Transformers integration.' },
-      { name: 'Gemini AI', usage: 'LLM-powered mock interview questions and feedback.' },
+      { name: 'Python', usage: 'RAG pipeline, spaCy NER, Sentence-Transformers & Flask API.' },
+      { name: 'AWS Bedrock', usage: 'Claude LLM for mock interview questions and feedback.' },
       { name: 'Flask', usage: 'REST API for resume parsing and job matching endpoints.' },
       { name: 'React', usage: 'Chat interface for interview prep and resume upload.' }
     ],
@@ -200,7 +200,6 @@ const ProjectCard = ({ project }) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      // FIX: Added 'will-change-transform transform-gpu' to force hardware acceleration
       className="group relative h-full w-full rounded-2xl cursor-none [perspective:1000px] will-change-transform transform-gpu"
     >
       <div 
@@ -208,7 +207,7 @@ const ProjectCard = ({ project }) => {
         style={{ transform: "translateZ(-10px)" }} 
       ></div>
       
-      <div className="relative flex flex-col h-full bg-[#050b14]/90 backdrop-blur-2xl border border-gray-800 rounded-2xl min-h-[360px] z-10 transition-colors duration-500 shadow-2xl">
+      <div className="relative flex flex-col h-full bg-[#050b14]/90 backdrop-blur-2xl border border-gray-800 rounded-2xl min-h-[360px] z-10 transition-colors duration-300 shadow-2xl">
         
         <motion.div 
           className="absolute inset-0 z-50 pointer-events-none rounded-2xl border-2 border-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -220,7 +219,7 @@ const ProjectCard = ({ project }) => {
           style={{ background: glareBackground }}
         />
 
-        {/* --- DEFAULT VIEW --- */}
+        {/* DEFAULT VIEW */}
         <div className="p-8 flex flex-col flex-grow h-full relative z-10 transition-opacity duration-500 group-hover:opacity-0">
           <h3 className="text-2xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300 tracking-wide">
             {project.title}
@@ -253,7 +252,6 @@ const ProjectCard = ({ project }) => {
                   {tag.name}
                 </span>
                 
-                {/* UPWARD TOOLTIP: Enhanced readability */}
                 <div className="hidden md:block absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[250px] opacity-0 group-hover/tag:opacity-100 group-hover/tag:-translate-y-1 -translate-y-0 transition-all duration-200 pointer-events-none z-[100]">
                   <div className="relative p-4 bg-gray-900/95 backdrop-blur-xl border border-gray-700/80 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.8)]">
                     <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-900 border-b border-r border-gray-700/80 rotate-45 rounded-br-[2px]"></div>
@@ -271,7 +269,7 @@ const ProjectCard = ({ project }) => {
           </div>
         </div>
 
-        {/* --- HOVER VIEW --- */}
+        {/* HOVER VIEW */}
         <div className="absolute inset-0 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out pointer-events-none group-hover:pointer-events-auto flex flex-col justify-end rounded-2xl">
           
           <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none z-0">
@@ -298,7 +296,6 @@ const ProjectCard = ({ project }) => {
                   {tag.name}
                 </span>
 
-                {/* DOWNWARD TOOLTIP: Enhanced readability */}
                 <div className="hidden md:block absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[250px] opacity-0 group-hover/tag:opacity-100 group-hover/tag:translate-y-1 -translate-y-0 transition-all duration-200 pointer-events-none z-[100]">
                   <div className="relative p-4 bg-gray-900/95 backdrop-blur-xl border border-gray-700/80 rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.8)]">
                     <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-900 border-t border-l border-gray-700/80 rotate-45 rounded-tl-[2px]"></div>
