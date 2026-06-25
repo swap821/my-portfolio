@@ -51,8 +51,9 @@ const Footer = () => {
             </svg>
           </a>
 
+          {/* FIX: LinkedIn URL was pointing to placeholder "yourprofile" */}
           <a 
-            href="https://linkedin.com/in/yourprofile" 
+            href="https://linkedin.com/in/swapnil-kumar-73a68a308" 
             target="_blank" 
             rel="noopener noreferrer"
             className="group flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-[#0A66C2] transition-colors duration-300 cursor-none"
