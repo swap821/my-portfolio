@@ -1,342 +1,329 @@
-import { useRef, useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules';
-
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { techIcons, techColors } from './techData';
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
+/* ──────────────── 9 Real Projects Data ──────────────── */
 const projects = [
-  { 
-    title: "DevStore", 
-    desc: "A full-stack e-commerce platform featuring seamless Stripe integration for secure, real-time payment processing.",
-    spotlights: [
-      "Engineered real-time Stripe webhook sync",
-      "Optimized Redux state for complex cart logic"
-    ],
-    tech: [
-      { name: "TypeScript", percent: 79.1, usage: "Primary application logic & static typing" },
-      { name: "CSS", percent: 15.8, usage: "Custom styling and layout" },
-      { name: "JavaScript", percent: 3.2, usage: "Configuration and build scripts" },
-      { name: "HTML", percent: 1.9, usage: "Document structure" }
-    ],
+  {
+    title: "DevStore",
+    category: "Full-Stack",
+    categoryColor: "#3B82F6",
+    desc: "Full-stack e-commerce with Stripe payments, Redux cart, and admin dashboard.",
+    features: ["Stripe payment integration", "Redux state management", "Admin dashboard", "Order tracking"],
+    tech: ["React", "Node.js", "MongoDB", "Stripe", "Redux"],
     github: "https://github.com/swap821/mini-ecommerce",
-    demo: "https://mini-ecommerce-six-gold.vercel.app",
-    image: "/projects/ecommerce.png" 
+    demo: "https://mini-ecommerce-six-gold.vercel.app"
   },
-  { 
-    title: "Placement Portal", 
-    desc: "A role-based management system designed to streamline job drives, student applications, and recruiter workflows.",
-    spotlights: [
-      "Role-Based Access Control (RBAC) architecture",
-      "Complex MongoDB aggregation for filtering"
-    ],
-    tech: [
-      { name: "JavaScript", percent: 48.5, usage: "Core frontend and backend logic" },
-      { name: "HTML", percent: 38.8, usage: "Application structure and templates" },
-      { name: "CSS", percent: 12.7, usage: "Component styling and UI layout" }
-    ],
+  {
+    title: "Placement Portal",
+    category: "Full-Stack",
+    categoryColor: "#3B82F6",
+    desc: "Role-based campus placement system with job drives and application tracking.",
+    features: ["RBAC authentication", "MongoDB aggregation", "Job drive management", "Application tracking"],
+    tech: ["JavaScript", "Node.js", "MongoDB", "Express"],
     github: "https://github.com/swap821/campus-placement-portal",
-    demo: null,
-    image: "/projects/placement.png" 
+    demo: null
   },
-  { 
-    title: "Live Chat App", 
-    desc: "An interactive messaging application utilizing WebSockets to handle instantaneous data flow and live communication.",
-    spotlights: [
-      "Event-driven WebSocket server architecture",
-      "Optimized bi-directional payload routing"
-    ],
-    tech: [
-      { name: "JavaScript", percent: 74.3, usage: "Client/Server WebSocket logic" },
-      { name: "CSS", percent: 23.0, usage: "Chat interface styling" },
-      { name: "HTML", percent: 2.7, usage: "Base document structure" }
-    ],
+  {
+    title: "Live Chat App",
+    category: "Full-Stack",
+    categoryColor: "#3B82F6",
+    desc: "Real-time messaging with WebSockets, rooms, and typing indicators.",
+    features: ["WebSocket architecture", "Real-time messaging", "Room-based chats", "Typing indicators"],
+    tech: ["JavaScript", "Socket.io", "Node.js", "Express"],
     github: "https://github.com/swap821/live-chat-app",
-    demo: "https://live-chat-app-five-amber.vercel.app",
-    image: "/projects/chat.png" 
+    demo: "https://live-chat-app-five-amber.vercel.app"
   },
-  { 
-    title: "Kanban Board", 
-    desc: "A productivity dashboard featuring complex state management and an intuitive drag-and-drop user interface.",
-    spotlights: [
-      "Immutable state matrix management",
-      "Optimized drag-and-drop render cycles"
-    ],
-    tech: [
-      { name: "TypeScript", percent: 67.6, usage: "Strictly typed application state" },
-      { name: "JavaScript", percent: 17.2, usage: "Utility functions and configs" },
-      { name: "CSS", percent: 13.5, usage: "Board and card styling" },
-      { name: "HTML", percent: 1.7, usage: "Base markup" }
-    ],
+  {
+    title: "Kanban Board",
+    category: "Frontend",
+    categoryColor: "#8B5CF6",
+    desc: "Drag-and-drop task board with React DnD and state management.",
+    features: ["Drag-and-drop UI", "State management", "Task CRUD operations", "Column customization"],
+    tech: ["TypeScript", "React", "React DnD", "Tailwind"],
     github: "https://github.com/swap821/kanban-project",
-    demo: null,
-    image: "/projects/kanban.png" 
+    demo: null
   },
-  { 
-    title: "Crypto Tracker", 
-    desc: "An API-driven dashboard providing live market data, price tracking, and analytics for various cryptocurrencies.",
-    spotlights: [
-      "Debounced REST API polling for live data",
-      "Dynamic canvas chart rendering & memoization"
-    ],
-    tech: [
-      { name: "JavaScript", percent: 80.2, usage: "Data fetching and chart rendering" },
-      { name: "CSS", percent: 17.6, usage: "Dashboard styling" },
-      { name: "HTML", percent: 2.2, usage: "Core layout structure" }
-    ],
+  {
+    title: "Crypto Tracker",
+    category: "Frontend",
+    categoryColor: "#8B5CF6",
+    desc: "Live crypto dashboard with API polling, charts, and price alerts.",
+    features: ["Live API polling", "Interactive charts", "Price alerts", "Portfolio tracking"],
+    tech: ["JavaScript", "React", "Chart.js", "REST API"],
     github: "https://github.com/swap821/crypto-tracker",
-    demo: "https://crypto-tracker-five-eosin.vercel.app",
-    image: "/projects/crypto.png" 
+    demo: "https://crypto-tracker-five-eosin.vercel.app"
   },
   {
     title: "ML Student Predictor",
-    desc: "Full-stack ML regression app predicting student exam scores. Trains 3 models with automated comparison.",
-    spotlights: [
-      "Multi-model training: Linear Regression, Random Forest, XGBoost",
-      "Automated feature importance analysis pipeline"
-    ],
-    tech: [
-      { name: "Python", percent: 62.0, usage: "ML model training with scikit-learn & XGBoost" },
-      { name: "JavaScript", percent: 25.0, usage: "React frontend with Recharts" },
-      { name: "CSS", percent: 8.5, usage: "Dashboard styling" },
-      { name: "HTML", percent: 4.5, usage: "App shell markup" }
-    ],
+    category: "AI/ML",
+    categoryColor: "#10B981",
+    desc: "ML regression app predicting student scores with 3 model comparison.",
+    features: ["3-model training pipeline", "Feature importance analysis", "Score prediction", "Model comparison charts"],
+    tech: ["Python", "Scikit-learn", "XGBoost", "Flask", "React"],
     github: "https://github.com/swap821/ml-student-predictor",
-    demo: "https://ml-student-predictor.vercel.app",
-    image: "/projects/ml-student.png"
+    demo: "https://ml-student-predictor.vercel.app"
   },
   {
-    title: "Sentiment Analysis App",
-    desc: "Dual-model NLP pipeline with TF-IDF + Logistic Regression and LSTM Neural Network.",
-    spotlights: [
-      "Dual-model NLP: TF-IDF and LSTM with confidence scoring",
-      "Batch CSV processing for large-scale sentiment analysis"
-    ],
-    tech: [
-      { name: "Python", percent: 60.0, usage: "NLP models with TensorFlow & scikit-learn" },
-      { name: "JavaScript", percent: 27.0, usage: "React frontend" },
-      { name: "CSS", percent: 9.0, usage: "Sentiment UI" },
-      { name: "HTML", percent: 4.0, usage: "App structure" }
-    ],
+    title: "Sentiment Analysis",
+    category: "AI/ML",
+    categoryColor: "#10B981",
+    desc: "Dual-model NLP pipeline with TF-IDF + LSTM for text sentiment analysis.",
+    features: ["TF-IDF + LSTM dual model", "Real-time text analysis", "Batch CSV processing", "Confidence scoring"],
+    tech: ["Python", "TensorFlow", "spaCy", "Flask", "React"],
     github: "https://github.com/swap821/sentiment-analysis-app",
-    demo: "https://sentiment-analysis-app.vercel.app",
-    image: "/projects/sentiment.png"
+    demo: "https://sentiment-analysis-app.vercel.app"
   },
   {
     title: "Face Emotion Detector",
-    desc: "Real-time CNN-based emotion detection from webcam feed. 7-class facial expression recognition.",
-    spotlights: [
-      "7-class emotion recognition using CNN architecture",
-      "Real-time WebSocket video streaming processing"
-    ],
-    tech: [
-      { name: "Python", percent: 58.0, usage: "CNN model with OpenCV & Flask" },
-      { name: "JavaScript", percent: 29.0, usage: "React frontend with Socket.IO" },
-      { name: "CSS", percent: 9.0, usage: "Camera feed UI" },
-      { name: "HTML", percent: 4.0, usage: "Video element markup" }
-    ],
+    category: "AI/ML",
+    categoryColor: "#10B981",
+    desc: "Real-time CNN-based emotion detection from webcam with 7-class recognition.",
+    features: ["7-class CNN emotion model", "Real-time webcam processing", "OpenCV integration", "WebSocket streaming"],
+    tech: ["Python", "TensorFlow", "OpenCV", "Flask", "Socket.io"],
     github: "https://github.com/swap821/face-emotion-detector",
-    demo: "https://face-emotion-detector.vercel.app",
-    image: "/projects/face-emotion.png"
+    demo: "https://face-emotion-detector.vercel.app"
   },
   {
     title: "AI Career Assistant",
-    desc: "Capstone project with RAG-based interview prep using AWS Bedrock and spaCy NER.",
-    spotlights: [
-      "RAG-based interview prep with AWS Bedrock (Claude)",
-      "spaCy NER resume parsing & semantic job matching"
-    ],
-    tech: [
-      { name: "Python", percent: 65.0, usage: "RAG pipeline, spaCy NER & Flask API" },
-      { name: "JavaScript", percent: 23.0, usage: "React frontend" },
-      { name: "CSS", percent: 8.0, usage: "Chat UI styling" },
-      { name: "HTML", percent: 4.0, usage: "File upload markup" }
-    ],
+    category: "AI/ML",
+    categoryColor: "#10B981",
+    desc: "Capstone with RAG interview prep, resume parsing, and job matching.",
+    features: ["RAG with AWS Bedrock/Claude", "spaCy NER resume parsing", "Skill gap analysis", "Semantic job matching"],
+    tech: ["Python", "AWS Bedrock", "spaCy", "Flask", "React"],
     github: "https://github.com/swap821/ai-career-assistant",
-    demo: "https://ai-career-assistant.vercel.app",
-    image: "/projects/ai-career.png"
+    demo: "https://ai-career-assistant.vercel.app"
   }
 ];
 
-const TechPill = ({ t, hoverTheme = false }) => (
-  <div className="relative group/pill z-50">
-    <span className={`px-2.5 py-1.5 md:px-3 text-[10px] md:text-[11px] font-bold tracking-wide rounded-full border transition-all duration-300 inline-flex items-center gap-1.5 shadow-md ${
-      hoverTheme 
-        ? "bg-black/90 text-white border-gray-600 lg:hover:border-blue-400 lg:hover:-translate-y-1" 
-        : "bg-[#1e293b] text-gray-300 border-gray-700 lg:hover:border-gray-500"
-    }`}>
-      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: techColors[t.name] || techColors.Default }}></span>
-      {techIcons[t.name] || techIcons.Default}
-      <span className="whitespace-nowrap">{t.name}</span>
-      <span className="text-gray-400 font-medium ml-0.5">{t.percent}%</span>
-    </span>
-    
-    <div className={`hidden lg:block absolute left-1/2 -translate-x-1/2 w-48 p-3 bg-[#0f172a] rounded-xl opacity-0 pointer-events-none transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.8)] border border-gray-700 z-[999] ${
-      hoverTheme ? "top-full mt-2 lg:group-hover/pill:opacity-100 lg:group-hover/pill:translate-y-1" : "bottom-full mb-2 lg:group-hover/pill:opacity-100 lg:group-hover/pill:-translate-y-1"
-    }`}>
-      <div className="flex items-center gap-1.5 mb-1.5">
-        <span className="text-blue-500 text-xs">⚡</span>
-        <span className="text-[9px] font-extrabold text-blue-500 tracking-widest uppercase">Usage</span>
-      </div>
-      <p className="text-xs text-gray-300 leading-snug">{t.usage}</p>
-    </div>
-  </div>
-);
+const categories = ["All", "Full-Stack", "Frontend", "AI/ML"];
 
-const ProjectSlider = () => {
-  const swiperRef = useRef(null);
+const getInitials = (title) => {
+  return title.split(/[\s-]+/).map(w => w[0]).join('').substring(0, 2).toUpperCase();
+};
 
-  useEffect(() => {
-    const handleSlideToProject = (event) => {
-      if (swiperRef.current) {
-        const targetIndex = event.detail.index;
-        swiperRef.current.slideToLoop(targetIndex, 800);
-      }
-    };
-
-    window.addEventListener('slide-to-project', handleSlideToProject);
-    return () => window.removeEventListener('slide-to-project', handleSlideToProject);
-  }, []);
+const ProjectCard = ({ project, index }) => {
+  const initials = getInitials(project.title);
+  const hasDemo = project.demo !== null;
 
   return (
-    <div id="projects-slider" className="w-full relative mx-auto overflow-visible flex flex-col items-center select-none py-10 scroll-mt-20">
-      
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20, scale: 0.95 }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
+      className="group relative"
+    >
+      {/* Hover glow */}
+      <div
+        className="absolute -inset-[1px] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"
+        style={{ background: `linear-gradient(135deg, ${project.categoryColor}40, transparent 60%)` }}
+      />
 
-      <div className="w-full max-w-[1400px] relative z-10">
-        <Swiper
-          effect={'coverflow'}
-          grabCursor={true}
-          centeredSlides={true}
-          slidesPerView={'auto'} 
-          loop={true}
-          autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
-          speed={800} 
-          slideToClickedSlide={true} 
-          coverflowEffect={{ rotate: 15, stretch: 0, depth: 300, modifier: 1, slideShadows: false }}
-          modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
-          onBeforeInit={(swiper) => { swiperRef.current = swiper; }}
-          className="mySwiper !pb-24" 
-        >
-          {projects.map((proj, idx) => (
-            <SwiperSlide key={idx} className="!w-[320px] sm:!w-[400px] lg:!w-[440px]">
-              {({ isActive }) => (
-                <div className="relative group">
-                  
-                  <div className={`absolute -bottom-10 left-10 right-10 h-10 bg-blue-500/40 blur-2xl transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-0'}`}></div>
+      <div className="relative h-full bg-[#0b1120] border border-gray-800/80 rounded-2xl overflow-hidden transition-all duration-300 group-hover:-translate-y-1 group-hover:border-gray-700 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <div className="flex flex-col md:flex-row h-full">
+          {/* LEFT: Image / Initials Area */}
+          <div
+            className="relative w-full md:w-[40%] min-h-[160px] md:min-h-full flex flex-col items-center justify-center p-6 overflow-hidden shrink-0"
+            style={{ backgroundColor: `${project.categoryColor}08` }}
+          >
+            {/* Dot pattern */}
+            <div className="absolute inset-0 opacity-[0.08]" style={{
+              backgroundImage: `radial-gradient(${project.categoryColor} 1px, transparent 1px)`,
+              backgroundSize: '16px 16px'
+            }} />
+            {/* Grid lines */}
+            <div className="absolute inset-0 opacity-[0.03]" style={{
+              backgroundImage: `linear-gradient(${project.categoryColor} 1px, transparent 1px), linear-gradient(90deg, ${project.categoryColor} 1px, transparent 1px)`,
+              backgroundSize: '40px 40px'
+            }} />
 
-                  <div className={`relative bg-[#0b1120] rounded-3xl h-[540px] lg:h-[490px] flex flex-col transition-all duration-700 ease-out will-change-transform ${
-                    isActive ? 'scale-100 cursor-auto' : 'opacity-50 scale-90 cursor-pointer hover:opacity-80' 
-                  }`}>
-                    
-                    {isActive && (
-                      <div className="absolute inset-[-2px] rounded-[26px] overflow-hidden pointer-events-none z-0">
-                        <div className="absolute inset-[-100%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,rgba(59,130,246,0.8)_50%,transparent_100%)] opacity-100 transition-opacity duration-500" />
-                      </div>
-                    )}
-                    
-                    <div className="absolute inset-[1px] bg-[#0b1120] rounded-3xl pointer-events-none z-0 border border-gray-800" />
+            {/* Large Initials */}
+            <div className="relative z-10 w-20 h-20 rounded-2xl flex items-center justify-center mb-3 border transition-all duration-300 group-hover:scale-110"
+              style={{
+                backgroundColor: `${project.categoryColor}15`,
+                borderColor: `${project.categoryColor}30`,
+                boxShadow: `0 0 30px ${project.categoryColor}10, inset 0 0 20px ${project.categoryColor}05`
+              }}
+            >
+              <span className="text-3xl font-black" style={{ color: project.categoryColor }}>{initials}</span>
+            </div>
+            <span className="relative z-10 text-[10px] font-bold uppercase tracking-[0.15em]" style={{ color: `${project.categoryColor}99` }}>{project.category}</span>
 
-                    <div className="absolute inset-[1px] z-10 overflow-hidden rounded-3xl pointer-events-none">
-                      <div className="absolute -top-6 -right-2 text-[12rem] font-black text-white/[0.02] select-none transition-transform duration-700 lg:group-hover:scale-100">
-                        0{idx + 1}
-                      </div>
-                      {isActive && (
-                        <>
-                          <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 scale-100 lg:group-hover:scale-110 opacity-15 lg:opacity-0 lg:group-hover:opacity-100" style={{ backgroundImage: `url(${proj.image})` }}></div>
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#050b14] via-[#050b14]/90 to-[#050b14]/60 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </>
-                      )}
-                    </div>
+            {/* Number */}
+            <div className="absolute -top-4 -left-2 text-[6rem] font-black leading-none select-none" style={{ color: `${project.categoryColor}06` }}>
+              {String(index + 1).padStart(2, '0')}
+            </div>
+          </div>
 
-                    <div className="absolute inset-[1px] z-20 flex flex-col pointer-events-none">
-                      
-                      {/* FRONT VIEW */}
-                      <div className={`absolute inset-0 flex flex-col h-full p-6 transition-opacity duration-500 pointer-events-auto ${isActive ? 'lg:group-hover:opacity-0 lg:group-hover:pointer-events-none' : ''}`}>
-                        <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-2 tracking-wide pr-10">{proj.title}</h3>
-                        <p className="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 md:mb-6">{proj.desc}</p>
+          {/* RIGHT: Content */}
+          <div className="flex-1 p-5 md:p-6 flex flex-col">
+            {/* Category badge */}
+            <span className="self-start text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3 border"
+              style={{ color: project.categoryColor, backgroundColor: `${project.categoryColor}12`, borderColor: `${project.categoryColor}25` }}>
+              {project.category}
+            </span>
 
-                        <div className="relative z-10 mb-4 md:mb-6 bg-[#0f172a]/80 border border-gray-700/50 rounded-2xl p-4 flex-grow shadow-inner flex flex-col justify-center">
-                          <h4 className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
-                            Engineering Spotlight
-                          </h4>
-                          <ul className="space-y-3">
-                            {proj.spotlights.map((spot, i) => (
-                              <li key={i} className="flex items-start gap-2 text-[11px] md:text-[12px] text-gray-300">
-                                <svg className="w-4 h-4 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span className="leading-snug">{spot}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+            <h3 className="text-xl md:text-2xl font-black text-white mb-2 tracking-tight">{project.title}</h3>
+            <p className="text-gray-400 text-sm mb-4 leading-relaxed">{project.desc}</p>
 
-                        {/* MOBILE ACTION BUTTONS */}
-                        {isActive && (
-                          <div className="flex gap-3 mb-5 lg:hidden z-30 relative">
-                            <a href={proj.github} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-black/60 border border-gray-600 text-white text-xs font-semibold rounded-xl text-center shadow-lg active:scale-95 transition-all">
-                              GitHub
-                            </a>
-                            <a href={proj.demo || proj.github} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-blue-600 text-white text-xs font-bold rounded-xl text-center shadow-[0_0_15px_rgba(37,99,235,0.5)] active:scale-95 transition-all">
-                              {proj.demo ? 'Live Demo' : 'View Code'}
-                            </a>
-                          </div>
-                        )}
+            {/* Features */}
+            <ul className="space-y-1.5 mb-4 flex-grow">
+              {project.features.map((f, i) => (
+                <li key={i} className="flex items-start gap-2 text-[12px] text-gray-300">
+                  <svg className="w-3.5 h-3.5 text-yellow-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                  </svg>
+                  <span className="leading-snug">{f}</span>
+                </li>
+              ))}
+            </ul>
 
-                        <div className="mt-auto pt-4 border-t border-gray-800/80">
-                          <div className="flex h-1.5 w-full rounded-full overflow-hidden mb-3 bg-gray-800">
-                            {proj.tech.map((t, i) => (
-                              <div key={i} style={{ width: `${t.percent}%`, backgroundColor: techColors[t.name] || techColors.Default }} />
-                            ))}
-                          </div>
-                          <div className="flex flex-wrap gap-2">
-                            {proj.tech.map((t, i) => <TechPill key={i} t={t} />)}
-                          </div>
-                        </div>
-                      </div>
+            {/* Tech pills */}
+            <div className="flex flex-wrap gap-1.5 mb-4">
+              {project.tech.map((t, i) => (
+                <span key={i} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold border"
+                  style={{
+                    color: techColors[t] || '#9CA3AF',
+                    backgroundColor: `${techColors[t] || '#9CA3AF'}10`,
+                    borderColor: `${techColors[t] || '#9CA3AF'}25`
+                  }}>
+                  {techIcons[t] ? <span className="w-2.5 h-2.5">{techIcons[t]}</span> : null}
+                  {t}
+                </span>
+              ))}
+            </div>
 
-                      {/* DESKTOP HOVER VIEW */}
-                      {isActive && (
-                        <div className="hidden lg:flex absolute inset-0 flex-col h-full justify-between p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out pointer-events-none group-hover:pointer-events-auto z-30">
-                          
-                          <div>
-                            <div className="flex h-1.5 w-full rounded-full overflow-hidden mb-3 bg-gray-800 shadow-xl -translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                              {proj.tech.map((t, i) => (
-                                <div key={i} style={{ width: `${t.percent}%`, backgroundColor: techColors[t.name] || techColors.Default }} />
-                              ))}
-                            </div>
-                            <div className="flex flex-wrap justify-center gap-2 -translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                              {proj.tech.map((t, i) => <TechPill key={`hover-${i}`} t={t} hoverTheme={true} />)}
-                            </div>
-                          </div>
-
-                          <div className="flex flex-col items-center justify-center translate-y-2 group-hover:translate-y-0 transition-transform duration-500 mb-6">
-                            <h3 className="text-3xl font-extrabold text-white mb-6 text-center drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">{proj.title}</h3>
-                            <div className="flex gap-4">
-                              <a href={proj.github} target="_blank" rel="noreferrer" className="px-5 py-2.5 bg-black/60 border border-gray-400 hover:border-white text-white text-sm font-semibold rounded-full transition-all hover:bg-white/20 shadow-xl">
-                                GitHub Repo
-                              </a>
-                              <a href={proj.demo || proj.github} target="_blank" rel="noreferrer" className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-full shadow-[0_0_20px_rgba(37,99,235,0.8)] transition-all hover:scale-105">
-                                {proj.demo ? 'Live Demo' : 'View Code'}
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                  </div>
-                </div>
-              )}
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            {/* Action buttons - ALWAYS VISIBLE */}
+            <div className="flex gap-2.5 pt-3 border-t border-gray-800/60">
+              <a href={project.github} target="_blank" rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-gray-600 text-white text-[11px] font-bold hover:bg-white/5 hover:border-gray-500 transition-all active:scale-95">
+                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                </svg>
+                GitHub Repo
+              </a>
+              <a href={hasDemo ? project.demo : project.github} target="_blank" rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-white text-[11px] font-bold transition-all active:scale-95"
+                style={{
+                  backgroundColor: hasDemo ? project.categoryColor : '#374151',
+                  boxShadow: hasDemo ? `0 4px 15px ${project.categoryColor}40` : 'none'
+                }}>
+                {hasDemo ? (
+                  <>
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Live Demo
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                    View Code
+                  </>
+                )}
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-      
-      <style>{`.swiper { overflow: visible !important; }`}</style>
+    </motion.div>
+  );
+};
+
+/* ═══════════════════════════════════════════
+   MAIN PROJECT SLIDER COMPONENT
+   ═══════════════════════════════════════════ */
+const ProjectSlider = () => {
+  const [activeFilter, setActiveFilter] = useState("All");
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  const filtered = activeFilter === "All"
+    ? projects
+    : projects.filter(p => p.category === activeFilter);
+
+  // Category counts
+  const counts = {
+    "All": projects.length,
+    "Full-Stack": projects.filter(p => p.category === "Full-Stack").length,
+    "Frontend": projects.filter(p => p.category === "Frontend").length,
+    "AI/ML": projects.filter(p => p.category === "AI/ML").length,
+  };
+
+  return (
+    <div id="projects-slider" className="scroll-mt-20">
+      {/* ── Filter Tabs ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+        className="flex items-center justify-center gap-1 sm:gap-2 mb-10 flex-wrap"
+      >
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveFilter(cat)}
+            className={`relative px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 ${
+              activeFilter === cat
+                ? 'text-white'
+                : 'text-gray-500 hover:text-gray-300'
+            }`}
+          >
+            {activeFilter === cat && (
+              <motion.div
+                layoutId="projectFilterBg"
+                className="absolute inset-0 rounded-xl"
+                style={{ backgroundColor: activeFilter === 'All' ? '#3B82F6' : activeFilter === 'Full-Stack' ? '#3B82F6' : activeFilter === 'Frontend' ? '#8B5CF6' : '#10B981' }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              />
+            )}
+            <span className="relative z-10">
+              {cat} <span className="opacity-60">({counts[cat]})</span>
+            </span>
+          </button>
+        ))}
+      </motion.div>
+
+      {/* ── Projects Grid ── */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeFilter}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="grid grid-cols-1 xl:grid-cols-2 gap-5 md:gap-6"
+        >
+          {filtered.map((project, idx) => (
+            <ProjectCard key={project.title} project={project} index={idx} />
+          ))}
+        </motion.div>
+      </AnimatePresence>
+
+      {/* ── Stats Bar ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="mt-12 flex items-center justify-center gap-6 md:gap-10 flex-wrap"
+      >
+        {[
+          { label: 'Full-Stack', count: counts['Full-Stack'], color: '#3B82F6' },
+          { label: 'Frontend', count: counts['Frontend'], color: '#8B5CF6' },
+          { label: 'AI/ML', count: counts['AI/ML'], color: '#10B981' },
+        ].map((stat, i) => (
+          <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0b1120]/80 border border-gray-800/60">
+            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: stat.color, boxShadow: `0 0 8px ${stat.color}60` }} />
+            <span className="text-sm font-bold text-white">{stat.count}</span>
+            <span className="text-xs text-gray-500 font-medium">{stat.label}</span>
+          </div>
+        ))}
+      </motion.div>
     </div>
   );
 };
