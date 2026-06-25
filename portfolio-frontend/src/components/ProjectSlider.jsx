@@ -91,6 +91,75 @@ const projects = [
     github: "https://github.com/swap821/crypto-tracker",
     demo: "https://crypto-tracker-five-eosin.vercel.app",
     image: "/projects/crypto.png" 
+  },
+  // NEW: ML Projects (added 2025)
+  {
+    title: "ML Student Predictor",
+    desc: "Full-stack ML regression app predicting student exam scores. Trains 3 models with automated comparison and feature importance analysis.",
+    spotlights: [
+      "Multi-model comparison: Linear Regression, Random Forest, XGBoost",
+      "Automated feature importance analysis pipeline"
+    ],
+    tech: [
+      { name: "Python", percent: 62.0, usage: "ML model training with scikit-learn & XGBoost" },
+      { name: "JavaScript", percent: 25.0, usage: "React frontend with Recharts visualizations" },
+      { name: "CSS", percent: 8.5, usage: "Dashboard and prediction form styling" },
+      { name: "HTML", percent: 4.5, usage: "App shell and component markup" }
+    ],
+    github: "https://github.com/swap821/ml-student-predictor",
+    demo: "https://ml-student-predictor.vercel.app",
+    image: "/projects/ml-student.png"
+  },
+  {
+    title: "Sentiment Analysis App",
+    desc: "Dual-model NLP pipeline with TF-IDF + Logistic Regression and LSTM Neural Network. Real-time text analysis with confidence scoring.",
+    spotlights: [
+      "Dual-model pipeline: TF-IDF + Logistic Regression and LSTM",
+      "Real-time text analysis with batch CSV processing"
+    ],
+    tech: [
+      { name: "Python", percent: 60.0, usage: "NLP models with TensorFlow & scikit-learn" },
+      { name: "JavaScript", percent: 27.0, usage: "React frontend for real-time text input" },
+      { name: "CSS", percent: 9.0, usage: "Sentiment UI and result visualization" },
+      { name: "HTML", percent: 4.0, usage: "App structure and layout" }
+    ],
+    github: "https://github.com/swap821/sentiment-analysis-app",
+    demo: "https://sentiment-analysis-app.vercel.app",
+    image: "/projects/sentiment.png"
+  },
+  {
+    title: "Face Emotion Detector",
+    desc: "Real-time CNN-based emotion detection from webcam feed. 7-class facial expression recognition with OpenCV preprocessing.",
+    spotlights: [
+      "7-class facial expression recognition using CNN",
+      "WebSocket streaming for real-time video processing"
+    ],
+    tech: [
+      { name: "Python", percent: 58.0, usage: "CNN model with OpenCV & Flask backend" },
+      { name: "JavaScript", percent: 29.0, usage: "React frontend with Socket.IO client" },
+      { name: "CSS", percent: 9.0, usage: "Camera feed UI and emotion display" },
+      { name: "HTML", percent: 4.0, usage: "Video element and component markup" }
+    ],
+    github: "https://github.com/swap821/face-emotion-detector",
+    demo: "https://face-emotion-detector.vercel.app",
+    image: "/projects/face-emotion.png"
+  },
+  {
+    title: "AI Career Assistant",
+    desc: "Capstone project with RAG-based interview prep. spaCy NER resume parsing, skill gap analysis, and Gemini LLM interview questions.",
+    spotlights: [
+      "RAG-based interview preparation with Gemini LLM",
+      "spaCy NER resume parsing & skill gap analysis"
+    ],
+    tech: [
+      { name: "Python", percent: 65.0, usage: "RAG pipeline, spaCy NER & Flask API" },
+      { name: "JavaScript", percent: 23.0, usage: "React frontend for chat & resume upload" },
+      { name: "CSS", percent: 8.0, usage: "Chat UI and resume viewer styling" },
+      { name: "HTML", percent: 4.0, usage: "App structure and file upload markup" }
+    ],
+    github: "https://github.com/swap821/ai-career-assistant",
+    demo: "https://ai-career-assistant.vercel.app",
+    image: "/projects/ai-career.png"
   }
 ];
 
