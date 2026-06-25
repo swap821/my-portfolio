@@ -33,6 +33,17 @@ const skillsData = [
       { name: 'Vercel / Render', iconKey: 'Default', usage: 'Configured automated CI/CD pipelines for cloud deployments.', projects: [{ name: 'Crypto Tracker', targetIndex: 4 }] },
       { name: 'Stripe Integration', iconKey: 'Stripe', usage: 'Engineered secure payment gateways and webhook listeners.', projects: [{ name: 'DevStore', targetIndex: 0 }] },
     ],
+  },
+  // NEW: AI & Machine Learning category
+  {
+    category: 'AI & Machine Learning',
+    items: [
+      { name: 'LLM Integration', iconKey: 'Gemini AI', usage: 'Integrated Gemini AI to build an intelligent portfolio assistant with contextual responses.', projects: [{ name: 'Portfolio', targetIndex: 0 }] },
+      { name: 'Prompt Engineering', iconKey: 'LLM APIs', usage: 'Crafted optimized prompts for accurate, context-aware AI responses in production.', projects: [{ name: 'Portfolio', targetIndex: 0 }] },
+      { name: 'Python', iconKey: 'Python', usage: 'Building ML pipelines with Pandas, NumPy, and Scikit-learn for data-driven applications.', projects: [{ name: 'Coming Soon', targetIndex: 0 }] },
+      { name: 'Data Analysis', iconKey: 'Pandas', usage: 'Exploring datasets with statistical analysis and visualization for model training.', projects: [{ name: 'Coming Soon', targetIndex: 0 }] },
+      { name: 'Scikit-learn', iconKey: 'Scikit-learn', usage: 'Training regression, classification, and clustering models for predictive analytics.', projects: [{ name: 'Coming Soon', targetIndex: 0 }] },
+    ],
   }
 ];
 
@@ -91,12 +102,13 @@ const Skills = () => {
           <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
         </div>
         
+        {/* UPDATED: Changed grid to 2 cols on md and 4 cols on lg for the new AI category */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {skillsData.map((skillGroup, index) => (
             <motion.div 
@@ -151,18 +163,18 @@ const Skills = () => {
                         ${isOpen ? 'block opacity-100 max-h-[500px] mt-3' : 'max-h-0 opacity-0 overflow-hidden md:max-h-none md:overflow-visible'} 
                         md:block md:absolute md:top-1/2 md:-translate-y-1/2 md:z-[100] md:w-[360px] md:py-12 md:pointer-events-none md:group-hover/item:pointer-events-auto
                         transition-all duration-300 ease-in-out
-                        ${index === 2 ? 'md:right-full md:pr-4' : 'md:left-full md:pl-4'}
+                        ${index === 2 || index === 3 ? 'md:right-full md:pr-4' : 'md:left-full md:pl-4'}
                       `}>
                         
                         <div className={`relative p-5 md:p-6 rounded-xl bg-[#0a101d]/95 backdrop-blur-2xl border border-gray-700 shadow-[0_20px_50px_rgba(0,0,0,0.9)] 
                           md:opacity-0 transition-all duration-300 ease-out
-                          ${index === 2 ? 'md:translate-x-4 md:group-hover/item:translate-x-0' : 'md:-translate-x-4 md:group-hover/item:translate-x-0'}
+                          ${index === 2 || index === 3 ? 'md:translate-x-4 md:group-hover/item:translate-x-0' : 'md:-translate-x-4 md:group-hover/item:translate-x-0'}
                           md:group-hover/item:opacity-100
                         `}>
                           
                           {/* Desktop Only Little Triangle Pointer */}
                           <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-[#0a101d] border-gray-700 rotate-45 
-                            ${index === 2 ? '-right-1.5 border-t border-r' : '-left-1.5 border-b border-l'}
+                            ${index === 2 || index === 3 ? '-right-1.5 border-t border-r' : '-left-1.5 border-b border-l'}
                           `}></div>
                           
                           <div className="relative z-10">
