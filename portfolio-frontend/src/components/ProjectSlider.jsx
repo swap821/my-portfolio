@@ -5,7 +5,7 @@ import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/module
 import { techIcons, techColors } from './techData';
 
 import 'swiper/css';
-import 'swiper/css/effect/coverflow';
+import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
@@ -40,7 +40,7 @@ const projects = [
       { name: "CSS", percent: 12.7, usage: "Component styling and UI layout" }
     ],
     github: "https://github.com/swap821/campus-placement-portal",
-    demo: "http://localhost:5175/student",
+    demo: null,
     image: "/projects/placement.png" 
   },
   { 
@@ -73,7 +73,7 @@ const projects = [
       { name: "HTML", percent: 1.7, usage: "Base markup" }
     ],
     github: "https://github.com/swap821/kanban-project",
-    demo: "http://localhost:5176",
+    demo: null,
     image: "/projects/kanban.png" 
   },
   { 
@@ -92,7 +92,7 @@ const projects = [
     demo: "https://crypto-tracker-five-eosin.vercel.app",
     image: "/projects/crypto.png" 
   },
-  // ML Projects - June 2025
+  // ML Projects
   {
     title: "ML Student Predictor",
     desc: "Full-stack ML regression app predicting student exam scores. Trains 3 models (Linear Regression, Random Forest, XGBoost) with automated comparison and feature importance analysis.",
@@ -282,8 +282,8 @@ const ProjectSlider = () => {
                             <a href={proj.github} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-black/60 border border-gray-600 text-white text-xs font-semibold rounded-xl text-center shadow-lg active:scale-95 transition-all">
                               GitHub
                             </a>
-                            <a href={proj.demo} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-blue-600 text-white text-xs font-bold rounded-xl text-center shadow-[0_0_15px_rgba(37,99,235,0.5)] active:scale-95 transition-all">
-                              Live Demo
+                            <a href={proj.demo || proj.github} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-blue-600 text-white text-xs font-bold rounded-xl text-center shadow-[0_0_15px_rgba(37,99,235,0.5)] active:scale-95 transition-all">
+                              {proj.demo ? 'Live Demo' : 'View Code'}
                             </a>
                           </div>
                         )}
@@ -318,11 +318,11 @@ const ProjectSlider = () => {
                           <div className="flex flex-col items-center justify-center translate-y-2 group-hover:translate-y-0 transition-transform duration-500 mb-6">
                             <h3 className="text-3xl font-extrabold text-white mb-6 text-center drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">{proj.title}</h3>
                             <div className="flex gap-4">
-                              <a href={proj.github} target="_blank" rel="noreferrer" className="px-5 py-2.5 bg-black/60 border border-gray-400 hover:border-white text-white text-sm font-semibold rounded-full transition-all hover:bg-white/20 shadow-xl cursor-none">
+                              <a href={proj.github} target="_blank" rel="noreferrer" className="px-5 py-2.5 bg-black/60 border border-gray-400 hover:border-white text-white text-sm font-semibold rounded-full transition-all hover:bg-white/20 shadow-xl">
                                 GitHub Repo
                               </a>
-                              <a href={proj.demo} target="_blank" rel="noreferrer" className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-full shadow-[0_0_20px_rgba(37,99,235,0.8)] transition-all hover:scale-105 cursor-none">
-                                Live Demo
+                              <a href={proj.demo || proj.github} target="_blank" rel="noreferrer" className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-full shadow-[0_0_20px_rgba(37,99,235,0.8)] transition-all hover:scale-105">
+                                {proj.demo ? 'Live Demo' : 'View Code'}
                               </a>
                             </div>
                           </div>
