@@ -72,6 +72,79 @@ const projectsData = [
     github: 'https://github.com/swap821/crypto-tracker',
     live: 'https://crypto-tracker-five-eosin.vercel.app',
     image: '/projects/crypto.png' 
+  },
+  // NEW: ML Projects (added 2025)
+  {
+    id: 6,
+    title: 'ML Student Predictor',
+    description: 'Full-stack ML regression app predicting student exam scores. Trains 3 models (Linear Regression, Random Forest, XGBoost) with automated comparison and feature importance analysis.',
+    highlights: [
+      'Multi-model training and automated comparison',
+      'Feature importance analysis pipeline'
+    ],
+    tech: [
+      { name: 'Python', usage: 'Built ML pipeline with scikit-learn and XGBoost for regression.' },
+      { name: 'Flask', usage: 'Served model predictions via REST API endpoints.' },
+      { name: 'React', usage: 'Interactive UI for inputting student data and viewing predictions.' },
+      { name: 'Recharts', usage: 'Visualized model comparison and feature importance charts.' }
+    ],
+    github: 'https://github.com/swap821/ml-student-predictor',
+    live: 'https://ml-student-predictor.vercel.app',
+    image: '/projects/ml-student.png'
+  },
+  {
+    id: 7,
+    title: 'Sentiment Analysis App',
+    description: 'Dual-model NLP pipeline with TF-IDF + Logistic Regression and LSTM Neural Network. Real-time text analysis with confidence scoring and batch CSV processing.',
+    highlights: [
+      'Dual-model NLP: TF-IDF and LSTM with confidence scoring',
+      'Batch CSV processing for large-scale sentiment analysis'
+    ],
+    tech: [
+      { name: 'Python', usage: 'Trained TF-IDF and LSTM models for text classification.' },
+      { name: 'TensorFlow', usage: 'Built and trained the LSTM neural network architecture.' },
+      { name: 'Flask', usage: 'Real-time prediction API for text and batch processing.' },
+      { name: 'React', usage: 'Frontend for real-time text input and result visualization.' }
+    ],
+    github: 'https://github.com/swap821/sentiment-analysis-app',
+    live: 'https://sentiment-analysis-app.vercel.app',
+    image: '/projects/sentiment.png'
+  },
+  {
+    id: 8,
+    title: 'Face Emotion Detector',
+    description: 'Real-time CNN-based emotion detection from webcam feed. 7-class facial expression recognition with OpenCV preprocessing and WebSocket streaming.',
+    highlights: [
+      '7-class emotion recognition using CNN architecture',
+      'Real-time WebSocket video streaming processing'
+    ],
+    tech: [
+      { name: 'Python', usage: 'CNN model training with OpenCV for face detection and preprocessing.' },
+      { name: 'OpenCV', usage: 'Real-time face detection and image preprocessing pipeline.' },
+      { name: 'Socket.io', usage: 'WebSocket streaming for real-time video frame processing.' },
+      { name: 'Flask', usage: 'Backend server for model inference and WebSocket handling.' }
+    ],
+    github: 'https://github.com/swap821/face-emotion-detector',
+    live: 'https://face-emotion-detector.vercel.app',
+    image: '/projects/face-emotion.png'
+  },
+  {
+    id: 9,
+    title: 'AI Career Assistant',
+    description: 'Capstone project with RAG-based interview prep. spaCy NER resume parsing, skill gap analysis, Gemini LLM interview questions, and semantic job matching.',
+    highlights: [
+      'RAG-based interview prep with Gemini LLM',
+      'spaCy NER resume parsing and skill gap analysis'
+    ],
+    tech: [
+      { name: 'Python', usage: 'RAG pipeline, spaCy NER, and Sentence-Transformers integration.' },
+      { name: 'Gemini AI', usage: 'LLM-powered mock interview questions and feedback.' },
+      { name: 'Flask', usage: 'REST API for resume parsing and job matching endpoints.' },
+      { name: 'React', usage: 'Chat interface for interview prep and resume upload.' }
+    ],
+    github: 'https://github.com/swap821/ai-career-assistant',
+    live: 'https://ai-career-assistant.vercel.app',
+    image: '/projects/ai-career.png'
   }
 ];
 
