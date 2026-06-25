@@ -5,15 +5,38 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 
 const app = express();
-app.use(cors());
+
+// SECURITY FIX: Restrict CORS to your Vercel domain only
+// For local dev, add: origin: ['https://swapnil-kumar-portfolio016.vercel.app', 'http://localhost:5173']
+const ALLOWED_ORIGINS = [
+  'https://swapnil-kumar-portfolio016.vercel.app',
+  'https://swapnil-kumar-portfolio.vercel.app',
+  // Add localhost for development
+  'http://localhost:5173',
+  'http://localhost:3000'
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (ALLOWED_ORIGINS.indexOf(origin) === -1) {
+      return callback(new Error('CORS policy: Origin not allowed'), false);
+    }
+    return callback(null, true);
+  },
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
 
 const server = http.createServer(app);
 
 // Initialize Socket.io with CORS allowed
 const io = new Server(server, {
   cors: {
-    origin: '*', 
-    methods: ['GET', 'POST']
+    origin: ALLOWED_ORIGINS,
+    methods: ['GET', 'POST'],
+    credentials: true
   }
 });
 
