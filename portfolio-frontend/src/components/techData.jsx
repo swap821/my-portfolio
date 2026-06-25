@@ -24,6 +24,20 @@ export const techIcons = {
   Pandas: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#150458]"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-3 14.5v-7h6v7H9zm7 0v-7h2v7h-2zm-8 0H6v-7h2v7z"/></svg>,
   NumPy: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#4D77CF]"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5v-2L12 20 2 15v2z"/></svg>,
   TensorFlow: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#FF6F00]"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.2L19.5 8 12 11.75 4.5 8 12 4.2zM4 9.55l7 3.5v6.9l-7-3.5v-6.9zm16 0v6.9l-7 3.5v-6.9l7-3.5z"/></svg>,
+  // NEW: Additional ML/DL Tech Icons (added 2025)
+  Flask: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#E0E0E0]"><path d="M12 2C7.58 2 4 4.24 4 7c0 1.66.78 3.15 2 4.21V17c0 2.76 3.58 5 8 5s8-2.24 8-5v-5.79c1.22-1.06 2-2.55 2-4.21 0-2.76-3.58-5-8-5zm-3 14c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1zm4 2c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1zm4-2c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1z"/></svg>,
+  XGBoost: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#00A9E0]"><path d="M12 2L2 7l10 5 10-5-10-5zM2 12l10 5 10-5M2 17l10 5 10-5"/></svg>,
+  OpenCV: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#5C3EE8]"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><circle cx="12" cy="12" r="3"/></svg>,
+  NLP: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-[#10A37F]"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5h12M3 10h8m-8 5h6m4 0l4-4m0 0l-4-4m4 4H15"/></svg>,
+  "spaCy": <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#09A3D5]"><path d="M12 2L2 7l10 5 10-5-10-5zM2 12l10 5 10-5M2 17l10 5 10-5"/></svg>,
+  RAG: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-[#F59E0B]"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>,
+  CNN: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-[#EC4899]"><path strokeLinecap="round" strokeLinejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>,
+  LSTM: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-[#8B5CF6]"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>,
+  Matplotlib: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#11557C]"><path d="M3 3v18h18v-2H5V3H3zm4 14l4-8 3 6 2-4 3 6H7z"/></svg>,
+  "Deep Learning": <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-[#7C3AED]"><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>,
+  Recharts: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#22B5BF]"><path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM7 12h2v5H7v-5zm4-3h2v8h-2V9zm4-2h2v10h-2V7z"/></svg>,
+  "Sentiment Analysis": <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-[#14B8A6]"><path strokeLinecap="round" strokeLinejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>,
+  "TF-IDF": <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-[#6366F1]"><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h10M4 18h16"/></svg>,
   Default: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-gray-400"><path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
 };
 
@@ -35,5 +49,10 @@ export const techColors = {
   // NEW: AI/ML tech colors
   Python: "#3776AB", "Gemini AI": "#8E75B7", "LLM APIs": "#10A37F", "Scikit-learn": "#F7931E",
   Pandas: "#150458", NumPy: "#4D77CF", TensorFlow: "#FF6F00",
+  // NEW: Additional ML/DL tech colors (added 2025)
+  Flask: "#E0E0E0", XGBoost: "#00A9E0", OpenCV: "#5C3EE8", NLP: "#10A37F",
+  "spaCy": "#09A3D5", RAG: "#F59E0B", CNN: "#EC4899", LSTM: "#8B5CF6",
+  Matplotlib: "#11557C", "Deep Learning": "#7C3AED", Recharts: "#22B5BF",
+  "Sentiment Analysis": "#14B8A6", "TF-IDF": "#6366F1",
   Default: "#9CA3AF"
 };
