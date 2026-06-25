@@ -20,7 +20,7 @@ const About = () => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-blue-600/20 rounded-full blur-[80px] pointer-events-none"></div>
 
             {/* THE NEW NEON HALO CONTAINER */}
-            <div className="relative w-72 h-72 md:w-80 md:h-80 rounded-full p-1.5 bg-gradient-to-tr from-blue-500/40 via-purple-500/20 to-blue-500/40 shadow-[0_0_40px_rgba(37,99,235,0.2)] group cursor-none">
+            <div className="relative w-72 h-72 md:w-80 md:h-80 rounded-full p-1.5 bg-gradient-to-tr from-blue-500/40 via-purple-500/20 to-blue-500/40 shadow-[0_0_40px_rgba(37,99,235,0.2)] group">
               {/* Inner Masking Container (Creates the sharp dark border) */}
               <div className="w-full h-full rounded-full overflow-hidden border-[6px] border-[#050b14] bg-[#050b14] relative z-10">
                 {/* THE ACTUAL PHOTO: Full color, clean zoom on hover */}
@@ -102,7 +102,7 @@ const About = () => {
             </div>
 
             {/* The "Live Status" Radar Badge */}
-            <div className="mt-10 inline-flex items-center gap-4 px-6 py-3.5 rounded-xl bg-[#0a101d] border border-gray-700/80 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:border-blue-500/50 transition-colors duration-300 cursor-none group">
+            <div className="mt-10 inline-flex items-center gap-4 px-6 py-3.5 rounded-xl bg-[#0a101d] border border-gray-700/80 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:border-blue-500/50 transition-colors duration-300 group">
               <span className="relative flex h-3.5 w-3.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-blue-500"></span>
