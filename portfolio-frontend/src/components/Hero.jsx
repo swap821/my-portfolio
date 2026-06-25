@@ -14,12 +14,12 @@ const Hero = () => {
         </h1>
         
         <h2 className="text-4xl md:text-6xl font-bold text-gray-400 mb-8 drop-shadow-md">
-          I build things for the web.
+          I build intelligent systems.
         </h2>
         
-        {/* UPGRADE 2: Scannable blue highlights for key terms */}
+        {/* UPGRADE 2: Scannable blue highlights for key terms — UPDATED for AI/ML positioning */}
         <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-12">
-          I am a <span className="text-blue-400 font-semibold">Full-Stack Developer</span> specializing in building exceptional, high-performance digital experiences. Currently, I am focused on building scalable <span className="text-blue-400 font-semibold">MERN stack</span> applications.
+          I am a <span className="text-blue-400 font-semibold">Full-Stack Developer & AI Enthusiast</span> specializing in building exceptional, high-performance digital experiences. Currently focused on <span className="text-blue-400 font-semibold">Full-Stack AI applications</span> and <span className="text-blue-400 font-semibold">Generative AI integrations</span>.
         </p>
         
         <div className="flex flex-col sm:flex-row flex-wrap gap-4 md:gap-6 justify-center items-center">
