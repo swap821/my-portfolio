@@ -16,6 +16,14 @@ export const techIcons = {
   Axios: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-[#5A29E4]"><path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16m-6-6l6 6-6 6"/></svg>,
   "React DnD": <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-purple-400"><path strokeLinecap="round" strokeLinejoin="round" d="M10 9V5a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2h-4m-6-4H4a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-4"/></svg>,
   Vite: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#646CFF]"><path d="M24 2.8L12.5 23 1 2.8l11.5 6.2z"/></svg>,
+  // NEW: AI/ML Technologies
+  Python: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#3776AB]"><path d="M12 2c-1.5 0-2.7.1-3.8.3-3.3.6-3.9 1.8-3.9 4v2.9h7.8v.9H4.3C1.9 10.1.8 11.4.8 13.9c0 2.7.7 4.2 2.5 5 .2.1.4.1.6.2-.4-.6-.6-1.4-.6-2.4 0-1.9 1.4-3.4 3.1-3.4h7.9c2.6 0 3.8-1.3 3.8-3.9V6.3c0-2.1-1.7-3.3-3.8-3.7-.8-.2-1.7-.3-2.3-.4zM9.1 4.6c.8 0 1.4.6 1.4 1.4 0 .8-.6 1.4-1.4 1.4-.8 0-1.4-.6-1.4-1.4 0-.8.6-1.4 1.4-1.4z"/><path d="M18.9 10.1v3.4c0 2.2-1.9 4-4.2 4H7.5c-1.8 0-3.2 1.5-3.2 3.4 0 1.9 1.4 3 3.2 3.4.9.2 1.9.3 2.9.3h2c2.4 0 3.4-1.3 3.4-3.4v-3.2h-3.4v-1.1h7.4c2.5 0 3.4-1.7 3.4-4.2v-2.7h-1.8zm-4.4 10.7c.8 0 1.4.6 1.4 1.4 0 .8-.6 1.4-1.4 1.4-.8 0-1.4-.6-1.4-1.4 0-.8.6-1.4 1.4-1.4z"/></svg>,
+  "Gemini AI": <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#8E75B7]"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z"/></svg>,
+  "LLM APIs": <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-[#10A37F]"><path strokeLinecap="round" strokeLinejoin="round" d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path strokeLinecap="round" strokeLinejoin="round" d="M8 14s1.5 2 4 2 4-2 4-2"/><path strokeLinecap="round" strokeLinejoin="round" d="M9 9h.01M15 9h.01"/></svg>,
+  "Scikit-learn": <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#F7931E]"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6zm4 4h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>,
+  Pandas: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#150458]"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-3 14.5v-7h6v7H9zm7 0v-7h2v7h-2zm-8 0H6v-7h2v7z"/></svg>,
+  NumPy: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#4D77CF]"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5v-2L12 20 2 15v2z"/></svg>,
+  TensorFlow: <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-[#FF6F00]"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.2L19.5 8 12 11.75 4.5 8 12 4.2zM4 9.55l7 3.5v6.9l-7-3.5v-6.9zm16 0v6.9l-7 3.5v-6.9l7-3.5z"/></svg>,
   Default: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 text-gray-400"><path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
 };
 
@@ -23,5 +31,9 @@ export const techColors = {
   React: "#61DAFB", "Node.js": "#339933", MongoDB: "#47A248", Stripe: "#008CDD",
   JavaScript: "#F7DF1E", TypeScript: "#3178C6", Tailwind: "#38B2AC", HTML: "#E34F26", CSS: "#1572B6",
   MERN: "#A8B9CC", Express: "#EEEEEE", "Socket.io": "#FFFFFF", "Chart.js": "#FF6384",
-  Axios: "#5A29E4", "React DnD": "#C084FC", Vite: "#646CFF", Default: "#9CA3AF"
+  Axios: "#5A29E4", "React DnD": "#C084FC", Vite: "#646CFF",
+  // NEW: AI/ML tech colors
+  Python: "#3776AB", "Gemini AI": "#8E75B7", "LLM APIs": "#10A37F", "Scikit-learn": "#F7931E",
+  Pandas: "#150458", NumPy: "#4D77CF", TensorFlow: "#FF6F00",
+  Default: "#9CA3AF"
 };
