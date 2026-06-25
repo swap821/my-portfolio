@@ -38,11 +38,12 @@ const skillsData = [
   {
     category: 'AI & Machine Learning',
     items: [
-      { name: 'LLM Integration', iconKey: 'Gemini AI', usage: 'Integrated Gemini AI to build an intelligent portfolio assistant with contextual responses.', projects: [{ name: 'Portfolio', targetIndex: 0 }] },
-      { name: 'Prompt Engineering', iconKey: 'LLM APIs', usage: 'Crafted optimized prompts for accurate, context-aware AI responses in production.', projects: [{ name: 'Portfolio', targetIndex: 0 }] },
-      { name: 'Python', iconKey: 'Python', usage: 'Building ML pipelines with Pandas, NumPy, and Scikit-learn for data-driven applications.', projects: [{ name: 'Coming Soon', targetIndex: 0 }] },
-      { name: 'Data Analysis', iconKey: 'Pandas', usage: 'Exploring datasets with statistical analysis and visualization for model training.', projects: [{ name: 'Coming Soon', targetIndex: 0 }] },
-      { name: 'Scikit-learn', iconKey: 'Scikit-learn', usage: 'Training regression, classification, and clustering models for predictive analytics.', projects: [{ name: 'Coming Soon', targetIndex: 0 }] },
+      { name: 'Machine Learning', iconKey: 'Scikit-learn', usage: 'Trained regression and classification models with scikit-learn and XGBoost.', projects: [{ name: 'ML Student Predictor', targetIndex: 5 }, { name: 'Sentiment App', targetIndex: 6 }] },
+      { name: 'Deep Learning', iconKey: 'TensorFlow', usage: 'Built CNN and LSTM neural networks with TensorFlow for CV and NLP tasks.', projects: [{ name: 'Face Emotion', targetIndex: 7 }, { name: 'Sentiment App', targetIndex: 6 }] },
+      { name: 'NLP', iconKey: 'NLP', usage: 'Implemented TF-IDF, spaCy NER, and sentiment analysis pipelines.', projects: [{ name: 'Sentiment App', targetIndex: 6 }, { name: 'AI Career', targetIndex: 8 }] },
+      { name: 'LLM Integration', iconKey: 'Gemini AI', usage: 'Integrated Gemini AI with RAG for intelligent interview prep and Q&A.', projects: [{ name: 'AI Career Assistant', targetIndex: 8 }] },
+      { name: 'Computer Vision', iconKey: 'OpenCV', usage: 'Real-time face detection and emotion recognition with OpenCV and CNN.', projects: [{ name: 'Face Emotion', targetIndex: 7 }] },
+      { name: 'Python', iconKey: 'Python', usage: 'Full-stack ML development with Flask, Pandas, NumPy, and Matplotlib.', projects: [{ name: 'ML Predictor', targetIndex: 5 }, { name: 'AI Career', targetIndex: 8 }] },
     ],
   }
 ];
